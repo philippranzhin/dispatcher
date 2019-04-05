@@ -4,11 +4,11 @@
 
     public class MainWindowViewModel : BindableBase
     {
-        private string _title = "Prism Unity Application";
+        private string title = "Prism Unity Application";
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => this.title;
+            set => this.SetProperty(ref this.title, value);
         }
 
         public MainWindowViewModel()

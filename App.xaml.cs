@@ -12,7 +12,10 @@ namespace DispatcherDesktop
 {
     using DispatcherDesktop.Views;
 
+    using DIspatcherDesktop.Views;
+
     using Prism.Ioc;
+    using Prism.Regions;
     using Prism.Unity;
     /// <summary>
     /// Interaction logic for App.xaml
@@ -26,6 +29,15 @@ namespace DispatcherDesktop
         protected override Window CreateShell()
         {
             return this.Container.Resolve<MainWindow>();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var regionManager = this.Container.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion("ContentRegion", typeof(DeviceWall));
+            regionManager.RegisterViewWithRegion("DeviceDetailsRegion", typeof(DeviceDetail));
         }
     }
 }
