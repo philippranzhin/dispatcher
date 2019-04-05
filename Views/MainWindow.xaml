@@ -1,4 +1,4 @@
-﻿<Window x:Class="DispatcherDesktop.MainWindow"
+﻿<Window x:Class="DispatcherDesktop.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:properties="clr-namespace:DIspatcherDesktop.Properties"
+        xmlns:mvvm="http://prismlibrary.com/"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular" 
         TextElement.FontSize="13" 
@@ -15,17 +16,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="{x:Static properties:Resources.AppName}" Height="450" Width="800">
-    <DockPanel LastChildFill="False">
-        <materialDesign:Card Padding="32" Margin="16">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-        </materialDesign:Card>
-        <materialDesign:Card Padding="32" Margin="16">
-            <DockPanel>
-                <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-                <Button Margin="5">klick</Button>
-            </DockPanel>
-            
-        </materialDesign:Card>
-    </DockPanel>
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="350" Width="525">
+    <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
 </Window>
