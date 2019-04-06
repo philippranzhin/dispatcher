@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DIspatcherDesktop.Views
+namespace DispatcherDesktop.Views
 {
     /// <summary>
     /// Interaction logic for DeviceWall.xaml

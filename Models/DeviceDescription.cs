@@ -1,4 +1,4 @@
-﻿namespace DIspatcherDesktop.Model
+﻿namespace DispatcherDesktop.Models
 {
     public class DeviceDescription
     {

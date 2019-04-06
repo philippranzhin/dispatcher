@@ -12,7 +12,8 @@ namespace DispatcherDesktop
 {
     using DispatcherDesktop.Views;
 
-    using DIspatcherDesktop.Views;
+    using DispatcherDesktop.Modbus;
+    using DispatcherDesktop.Views;
 
     using Prism.Ioc;
     using Prism.Regions;
@@ -24,6 +25,9 @@ namespace DispatcherDesktop
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, HardcodedDevices>();
+            containerRegistry.RegisterSingleton<IDeviceDataProvider, DeviceDataProvider>();
+            containerRegistry.RegisterSingleton<IDeviceDataReader, DeviceDataReader>();
         }
 
         protected override Window CreateShell()

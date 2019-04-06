@@ -72,7 +72,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\DeviceDescription.cs" />
+    <Compile Include="Modbus\DeviceDataProvider.cs" />
+    <Compile Include="Modbus\DeviceDataReader.cs" />
+    <Compile Include="Modbus\HardcodedDevices.cs" />
+    <Compile Include="Modbus\IDeviceDataReader.cs" />
+    <Compile Include="Modbus\IDevicesConfigurationProvider.cs" />
+    <Compile Include="Models\DeviceData.cs" />
+    <Compile Include="Models\DeviceDescription.cs" />
+    <Compile Include="Modbus\IDeviceDataProvider.cs" />
+    <Compile Include="Models\Seazon.cs" />
     <Compile Include="ViewModels\DeviceDetailViewModel.cs" />
     <Compile Include="ViewModels\DeviceWallViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -113,9 +121,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modbus\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.5.1</Version>

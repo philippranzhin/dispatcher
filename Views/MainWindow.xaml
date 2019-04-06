@@ -3,20 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DispatcherDesktop"
-        xmlns:p="clr-namespace:DispatcherDesktop.Properties"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:properties="clr-namespace:DIspatcherDesktop.Properties"
         xmlns:mvvm="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular" 
         TextElement.FontSize="13" 
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource BlackBackground}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mvvm:ViewModelLocator.AutoWireViewModel="True"
+        WindowState="Maximized"
+        WindowStyle="None"
         Title="{Binding Title}" Height="350" Width="525">
-    <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="{DynamicResource MaterialDesignBackground}">
+            <TextBlock Text="{x:Static properties:Resources.AppName}" Margin="20" Style="{DynamicResource MaterialDesignTitleTextBlock}" TextAlignment="Center" />
+        </DockPanel>
+        <DockPanel Dock="Bottom" Margin="5">
+            <TextBlock HorizontalAlignment="Center">
+                powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
+            </TextBlock>
+        </DockPanel>
+        <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
+    </DockPanel>
 </Window>

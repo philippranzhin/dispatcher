@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DIspatcherDesktop.Properties {
+namespace DispatcherDesktop.Properties {
     using System;
     
     
@@ -61,11 +61,20 @@ namespace DIspatcherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dispatcher Kabelshik plus.
+        ///   Looks up a localized string similar to Приложение диспечтчеризации тепловых узлов академии МЧС.
         /// </summary>
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to автоматический опрос.
+        /// </summary>
+        public static string SurveyStartedLabel {
+            get {
+                return ResourceManager.GetString("SurveyStartedLabel", resourceCulture);
             }
         }
     }
