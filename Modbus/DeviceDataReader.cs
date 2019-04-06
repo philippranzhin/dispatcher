@@ -8,13 +8,12 @@ namespace DispatcherDesktop.Modbus
 
     public class DeviceDataReader : IDeviceDataReader
     {
-        private int x = 0;
         public async Task<DeviceData> Read(DeviceDescription description)
         {
             return await Task.Run<DeviceData>(
                 () => new DeviceData(description.Name, description.Id)
                           {
-                              OutdoorTemperature = 5F+(x++),
+                              OutdoorTemperature = 5F,
                               DirectTemperature = 70.0F,
                               ReturnTemperature = 50.0F,
                               MixingTemperature = 60.0F,

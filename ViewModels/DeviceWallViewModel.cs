@@ -15,14 +15,10 @@
 
         private DeviceDescription selectedDevice;
 
-        private bool surveyEnabled;
-
         public DeviceWallViewModel(IDevicesConfigurationProvider configurationProvider, IDeviceDataProvider deviceDataProvider)
         {
             this.devices = new ObservableCollection<DeviceDescription>(configurationProvider.Devices);
             this.deviceDataProvider = deviceDataProvider;
-
-            this.surveyEnabled = deviceDataProvider.SurveyStarted;
         }
 
         public ObservableCollection<DeviceDescription> Devices
@@ -35,16 +31,6 @@
         {
             get => this.selectedDevice;
             set => this.SetProperty(ref this.selectedDevice, value);
-        }
-
-        public bool SurveyEnabled
-        {
-            get => this.surveyEnabled;
-            set
-            {
-                this.deviceDataProvider.SurveyStarted = value;
-                this.SetProperty(ref this.surveyEnabled, value);
-            } 
         }
     }
 }

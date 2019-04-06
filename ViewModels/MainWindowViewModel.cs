@@ -1,19 +1,30 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using DispatcherDesktop.Modbus;
+
     using Prism.Mvvm;
 
     public class MainWindowViewModel : BindableBase
     {
-        private string title = "Prism Unity Application";
-        public string Title
+        private readonly IDeviceDataProvider deviceDataProvider;
+
+        private bool surveyEnabled;
+
+        public MainWindowViewModel(IDeviceDataProvider deviceDataProvider)
         {
-            get => this.title;
-            set => this.SetProperty(ref this.title, value);
+            this.deviceDataProvider = deviceDataProvider;
+
+            this.surveyEnabled = deviceDataProvider.SurveyStarted;
         }
 
-        public MainWindowViewModel()
+        public bool SurveyEnabled
         {
-            this.Title = "xuy";
+            get => this.surveyEnabled;
+            set
+            {
+                this.deviceDataProvider.SurveyStarted = value;
+                this.SetProperty(ref this.surveyEnabled, value);
+            }
         }
     }
 }

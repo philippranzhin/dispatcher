@@ -15,9 +15,9 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border  BorderThickness="0 0 1 0"  Margin="0 15 0 15" BorderBrush="{DynamicResource MaterialDesignBodyLight}">
+        <Border  BorderThickness="0 0 1 0"  Margin="0 15 0 15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
             <DockPanel>
-                <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                <materialDesign:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top" Padding="10">
                     Список устройств
                 </materialDesign:ColorZone>
                 <ListBox x:Name="ListOfDevices" SelectedIndex="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
@@ -33,12 +33,6 @@
             </DockPanel>
         </Border>
         <DockPanel Grid.Column="1" Margin="25 15 25 15">
-            <materialDesign:ColorZone DockPanel.Dock="Bottom" Margin="0 15 0 0">
-                <DockPanel>
-                    <CheckBox DockPanel.Dock="Left" Margin="5" IsChecked="{Binding SurveyEnabled}" Content="{x:Static properties:Resources.SurveyStartedLabel}"></CheckBox>
-                    <CheckBox DockPanel.Dock="Left" Margin="5" Content="уведомлять об ошибках"></CheckBox>
-                </DockPanel>
-            </materialDesign:ColorZone>
             <ContentControl  
                              mvvm:RegionManager.RegionName="DeviceDetailsRegion"
                              mvvm:RegionManager.RegionContext="{Binding SelectedItem, ElementName=ListOfDevices}"/>

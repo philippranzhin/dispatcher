@@ -11,5 +11,15 @@
         {
             this.InitializeComponent();
         }
+
+        private void Quit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Minimize(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

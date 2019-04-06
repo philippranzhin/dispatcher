@@ -9,14 +9,12 @@
              mc:Ignorable="d" 
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="150" d:DesignWidth="200">
-    <materialDesign:Card VerticalAlignment="Stretch">
+    <DockPanel VerticalAlignment="Stretch">
         <DockPanel>
-            <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
-                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">
+            <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTitleTextBlock}">
                     <Run>Информация об устройстве</Run> 
-                    <Run Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Text="{Binding DeviceData.Name, Mode=OneWay}"/>
-                </TextBlock>
-            </materialDesign:ColorZone>
+                    <Run Foreground="{DynamicResource PrimaryHueDarkBrush}" Text="{Binding DeviceData.Name, Mode=OneWay}"/>
+            </TextBlock>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -39,13 +37,13 @@
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Адрес в сети</TextBlock>
                         </materialDesign:ColorZone>
-                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Text="{Binding DeviceData.Address, Mode=OneWay}" Margin="5"/>
+                        <TextBlock TextWrapping="Wrap" Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Text="{Binding DeviceData.Address, Mode=OneWay}" Margin="5"/>
                     </DockPanel>
                 </materialDesign:Card>
                 <materialDesign:Card Grid.Row="0" Grid.Column="1" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
-                            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Температура наружного воздуха</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignTitleTextBlock}" LineStackingStrategy="MaxHeight">Температура наружного воздуха</TextBlock>
                         </materialDesign:ColorZone>
                         <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
                             <Run Text="{Binding DeviceData.OutdoorTemperature, Mode=OneWay}"/> <Run Text="&#186;"/>
@@ -54,5 +52,5 @@
                 </materialDesign:Card>
             </Grid>
         </DockPanel>
-    </materialDesign:Card>
+    </DockPanel>
 </UserControl>
