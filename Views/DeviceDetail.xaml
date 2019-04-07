@@ -16,7 +16,7 @@
                        Margin="5"
                        Style="{DynamicResource MaterialDesignTitleTextBlock}">
                     <Run>Информация об устройстве</Run> 
-                    <Run Foreground="{DynamicResource PrimaryHueDarkBrush}" Text="{Binding DeviceData.Name, Mode=OneWay}"/>
+                    <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding DeviceData.Name, Mode=OneWay}"/>
             </TextBlock>
             <WrapPanel>
                 <materialDesign:Card Width="200" Height="150" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

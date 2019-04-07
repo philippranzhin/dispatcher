@@ -24,8 +24,8 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Margin="5">
-                                <TextBlock DockPanel.Dock="Left" Text="{Binding Id}">
-                                 <Run Text="{Binding Id}" FontWeight="SemiBold" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Name}"/>
+                                <TextBlock DockPanel.Dock="Left">
+                                 <Run Text="{Binding Id, Mode=OneWay}" FontWeight="SemiBold" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Name, Mode=OneWay}"/>
                                 </TextBlock>
                             </DockPanel>
                         </DataTemplate>
