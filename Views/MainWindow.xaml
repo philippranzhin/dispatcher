@@ -52,11 +52,17 @@
                 </materialDesign:PopupBox>
                 <TextBlock Text="{x:Static properties:Resources.AppName}" Margin="20" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" TextAlignment="Center" />
             </DockPanel>
-            <DockPanel Dock="Bottom" Margin="5">
-                <TextBlock HorizontalAlignment="Center">
+            <materialDesign:ColorZone DockPanel.Dock="Top" Mode="PrimaryLight">
+                <DockPanel Margin="15 5 5 5">
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="SubdirectoryArrowRight" />
+                    <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">панель устройств</TextBlock>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <materialDesign:ColorZone DockPanel.Dock="Bottom">
+                <TextBlock HorizontalAlignment="Center" Margin="5">
                     powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
                 </TextBlock>
-            </DockPanel>
+            </materialDesign:ColorZone>
             <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
         </DockPanel>
     </materialDesign:DrawerHost>

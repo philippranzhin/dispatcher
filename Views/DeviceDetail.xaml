@@ -11,28 +11,15 @@
              d:DesignHeight="150" d:DesignWidth="200">
     <DockPanel VerticalAlignment="Stretch">
         <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTitleTextBlock}">
+            <TextBlock DockPanel.Dock="Top" 
+                       VerticalAlignment="Center" 
+                       Margin="5"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}">
                     <Run>Информация об устройстве</Run> 
                     <Run Foreground="{DynamicResource PrimaryHueDarkBrush}" Text="{Binding DeviceData.Name, Mode=OneWay}"/>
             </TextBlock>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <materialDesign:Card Grid.Row="0" Grid.Column="1" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <WrapPanel>
+                <materialDesign:Card Width="200" Height="150" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -58,7 +45,7 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Row="0" Grid.Column="2" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Width="200" Height="150" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -84,7 +71,7 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Row="0" Grid.Column="3" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -110,7 +97,7 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Row="0" Grid.Column="4" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -136,7 +123,7 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Row="1" Grid.Column="1" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -162,7 +149,7 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Grid.Row="1" Grid.Column="2" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel>
                         <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
                             <DockPanel>
@@ -188,7 +175,163 @@
                         </TextBlock>
                     </DockPanel>
                 </materialDesign:Card>
-            </Grid>
+                            <materialDesign:Card Width="200" Height="150" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Адрес устройства в сети</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                        />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.Address, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Width="200" Height="150" Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Температура наружного воздуха</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                                   />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.OutdoorTemperature, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="&#186;"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Температура отопления, подача</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                        />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.DirectTemperature, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="&#186;"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Температура смешения</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                        />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.MixingTemperature, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="&#186;"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Температура отопления, обратка</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                        />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.ReturnTemperature, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="&#186;"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Width="200" Height="150"  Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <DockPanel>
+                        <materialDesign:ColorZone DockPanel.Dock="Top" Padding="10">
+                            <DockPanel>
+                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                    <ListBox>
+                                        <ListBoxItem>Записать новое значение</ListBoxItem>
+                                    </ListBox>
+                                </materialDesign:PopupBox>
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="WrapWithOverflow" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" LineStackingStrategy="MaxHeight">Задание отопления</TextBlock>
+                            </DockPanel>
+                        </materialDesign:ColorZone>
+                        <TextBlock DockPanel.Dock="Bottom" 
+                                   TextWrapping="WrapWithOverflow" 
+                                   Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                   Padding="2"
+                                   HorizontalAlignment="Right"
+                                   LineStackingStrategy="MaxHeight" 
+                                   Text="{Binding DeviceData.Date}"
+                        />
+                        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                            <Run Text="{Binding DeviceData.GivingHeatingTemperature, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="&#186;"/>
+                        </TextBlock>
+                    </DockPanel>
+                </materialDesign:Card>
+                </WrapPanel>
         </DockPanel>
     </DockPanel>
 </UserControl>
