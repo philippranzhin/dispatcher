@@ -19,10 +19,10 @@
         WindowStyle="None"
         Height="350"
         Width="525">
- 
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="212">
+
+    <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        <materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel MinWidth="212">
                 <materialDesign:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top">
                     <DockPanel >
                         <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
@@ -40,25 +40,25 @@
                     powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
                 </TextBlock>
             </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-            <DockPanel>
-                <DockPanel DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}">
+        </materialDesign:DrawerHost.LeftDrawerContent>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}" MinHeight="80">
                 <ToggleButton Cursor="Hand" x:Name="MenuToggleButton" DockPanel.Dock="Left" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                    <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
-                        <ListBox>
-                            <ListBoxItem Selected="Quit">Выйти</ListBoxItem>
-                            <ListBoxItem Selected="Minimize">Свернуть</ListBoxItem>
-                        </ListBox>
-                    </materialDesign:PopupBox>
-                    <TextBlock Text="{x:Static properties:Resources.AppName}" Margin="20" Style="{DynamicResource MaterialDesignTitleTextBlock}" TextAlignment="Center" />
-                </DockPanel>
-                <DockPanel Dock="Bottom" Margin="5">
-                    <TextBlock HorizontalAlignment="Center">
-                    powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
-                    </TextBlock>
-                </DockPanel>
-                <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
+                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                    <ListBox>
+                        <ListBoxItem Selected="Quit">Выйти</ListBoxItem>
+                        <ListBoxItem Selected="Minimize">Свернуть</ListBoxItem>
+                    </ListBox>
+                </materialDesign:PopupBox>
+                <TextBlock Text="{x:Static properties:Resources.AppName}" Margin="20" VerticalAlignment="Center" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" TextAlignment="Center" />
             </DockPanel>
-        </materialDesign:DrawerHost>
+            <DockPanel Dock="Bottom" Margin="5">
+                <TextBlock HorizontalAlignment="Center">
+                    powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
+                </TextBlock>
+            </DockPanel>
+            <ContentControl mvvm:RegionManager.RegionName="ContentRegion" />
+        </DockPanel>
+    </materialDesign:DrawerHost>
 
 </Window>

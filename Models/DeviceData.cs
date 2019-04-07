@@ -1,5 +1,7 @@
 ﻿namespace DispatcherDesktop.Models
 {
+    using System;
+
     public class DeviceData
     {
         public DeviceData(string name, int address)
@@ -35,5 +37,7 @@
         public int HeatingOpeningLimit { get; set; }
 
         public int HeatingClosingLimit { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

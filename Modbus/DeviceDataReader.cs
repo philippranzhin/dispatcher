@@ -21,7 +21,7 @@ namespace DispatcherDesktop.Modbus
                               HeatingOpeningLimit = 90,
                               HeatingClosingLimit = 20,
                               Seazon = Seazon.Summer,
-
+                              Date = DateTime.Now,
                           });
         }
     }
