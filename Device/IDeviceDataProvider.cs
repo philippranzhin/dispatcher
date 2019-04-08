@@ -1,4 +1,4 @@
-﻿namespace DispatcherDesktop.Modbus
+﻿namespace DispatcherDesktop.Device
 {
     using System;
     using System.Collections.Generic;

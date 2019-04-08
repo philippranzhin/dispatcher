@@ -2,7 +2,7 @@
 {
     using System.Collections.ObjectModel;
 
-    using DispatcherDesktop.Modbus;
+    using DispatcherDesktop.Device;
     using DispatcherDesktop.Models;
 
     using Prism.Mvvm;

@@ -1,7 +1,6 @@
-﻿namespace DispatcherDesktop.Modbus
+﻿namespace DispatcherDesktop.Device
 {
     using System.Collections.Generic;
-    using System.Windows.Documents;
 
     using DispatcherDesktop.Models;
 

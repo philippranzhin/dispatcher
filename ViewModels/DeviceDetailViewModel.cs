@@ -1,11 +1,10 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
-    using System.Linq;
-
-    using DispatcherDesktop.Modbus;
+    using DispatcherDesktop.Device;
     using DispatcherDesktop.Models;
 
     using Prism.Mvvm;
+
     public class DeviceDetailViewModel : BindableBase
     {
         private readonly IDeviceDataProvider dataProvider;

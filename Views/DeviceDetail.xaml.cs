@@ -1,7 +1,7 @@
-﻿using System.Windows.Controls;
-
-namespace DispatcherDesktop.Views
+﻿namespace DispatcherDesktop.Views
 {
+    using System.Windows.Controls;
+
     using DispatcherDesktop.Models;
     using DispatcherDesktop.ViewModels;
 
@@ -16,7 +16,7 @@ namespace DispatcherDesktop.Views
         public DeviceDetail()
         {
             this.InitializeComponent();
-            RegionContext.GetObservableContext(this).PropertyChanged += DevicePropertyChanged;
+            RegionContext.GetObservableContext(this).PropertyChanged += this.DevicePropertyChanged;
         }
 
         private void DevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

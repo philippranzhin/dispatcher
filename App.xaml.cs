@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Prism;
-
-
-namespace DispatcherDesktop
+﻿namespace DispatcherDesktop
 {
-    using DispatcherDesktop.Views;
+    using System.Windows;
 
-    using DispatcherDesktop.Modbus;
+    using DispatcherDesktop.Configuration;
+    using DispatcherDesktop.Device;
+    using DispatcherDesktop.Navigation;
     using DispatcherDesktop.Views;
 
     using Prism.Ioc;
     using Prism.Regions;
     using Prism.Unity;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -25,9 +18,11 @@ namespace DispatcherDesktop
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<ISettingsProvider, SettingsProvider>();
             containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, HardcodedDevices>();
             containerRegistry.RegisterSingleton<IDeviceDataProvider, DeviceDataProvider>();
             containerRegistry.RegisterSingleton<IDeviceDataReader, DeviceDataReader>();
+            containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
         }
 
         protected override Window CreateShell()
@@ -40,8 +35,33 @@ namespace DispatcherDesktop
             base.OnStartup(e);
 
             var regionManager = this.Container.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("ContentRegion", typeof(DeviceWall));
-            regionManager.RegisterViewWithRegion("DeviceDetailsRegion", typeof(DeviceDetail));
+
+            var regionsProvider = this.Container.Resolve<IRegionsProvider>();
+
+            foreach (var regionsProviderRegion in regionsProvider.Regions)
+            {
+                this.Register(regionsProviderRegion.Value);
+            }
+
+            regionManager.Regions[RegionNames.Main].RequestNavigate(regionsProvider.SelectedRegion.ViewId);
+        }
+
+        private void Register(NavigableRegion region)
+        {
+            var regionManager = this.Container.Resolve<IRegionManager>();
+            var mainRegion = regionManager.Regions[RegionNames.Main];
+
+            if (mainRegion.Name == region.Id )
+            {
+                return;
+            }
+
+            regionManager.RegisterViewWithRegion(region.Id, () =>
+                this.Container.Resolve(region.Type));
+
+            object view = this.Container.Resolve(region.Type);
+            
+            mainRegion.Add(view);
         }
     }
 }

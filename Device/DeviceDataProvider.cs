@@ -1,13 +1,12 @@
-﻿namespace DispatcherDesktop.Modbus
+﻿namespace DispatcherDesktop.Device
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Timers;
 
+    using DispatcherDesktop.Configuration;
     using DispatcherDesktop.Models;
-
     using DispatcherDesktop.Properties;
 
     class DeviceDataProvider : IDeviceDataProvider, IDisposable
@@ -15,6 +14,8 @@
         private readonly IDeviceDataReader dataReader;
 
         private readonly IDevicesConfigurationProvider configurationProvider;
+
+        private readonly ISettingsProvider settingsProvider;
 
         private readonly Dictionary<int, DeviceData> recentData;
 
@@ -24,15 +25,16 @@
 
         private volatile bool readCompleted;
 
-        public DeviceDataProvider(IDeviceDataReader dataReader, IDevicesConfigurationProvider configurationProvider)
+        public DeviceDataProvider(IDeviceDataReader dataReader, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider)
         {
             this.dataReader = dataReader;
-            this.configurationProvider = configurationProvider;  
+            this.configurationProvider = configurationProvider;
+            this.settingsProvider = settingsProvider;
 
             this.recentData = new Dictionary<int, DeviceData>();
             this.surveyStarted = false;
 
-            this.lifeTimer = new Timer(Settings.Default.SurveyPeriod)
+            this.lifeTimer = new Timer(this.settingsProvider.SurveyPeriodSeconds * 1000)
                                  {
                                      AutoReset = true,
                                  };
