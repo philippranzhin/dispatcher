@@ -12,15 +12,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="100" Width="200" MaxWidth="600"/>
+            <ColumnDefinition MinWidth="100" Width="200" MaxWidth="800"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border  BorderThickness="0 0 1 0"  Margin="0" BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
+        <Border  BorderThickness="0 0 0 0"  Margin="0" BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
             <DockPanel>
                 <materialDesign:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top" Padding="10">
                     устройства
                 </materialDesign:ColorZone>
-                <ListBox x:Name="ListOfDevices" SelectedIndex="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
+                <ListBox x:Name="ListOfDevices" Background="{DynamicResource MaterialDesignDivider}" SelectedIndex="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Margin="5">
