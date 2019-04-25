@@ -2,7 +2,7 @@
 {
     public interface ISettingsProvider
     {
-        string ComName { get; set; }
+        string ConnectionString { get; set; }
 
         int SurveyPeriodSeconds { get; set; }
     }

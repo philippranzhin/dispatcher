@@ -4,7 +4,7 @@
 
     public class SettingsProvider : ISettingsProvider
     {
-        public string ComName
+        public string ConnectionString
         {
             get => Settings.Default.PortName;
             set

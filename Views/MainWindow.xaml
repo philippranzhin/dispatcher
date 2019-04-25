@@ -68,7 +68,13 @@
                     powered by <Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
                 </TextBlock>
             </materialDesign:ColorZone>
-            <ContentControl mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.Main}" />
+            <materialDesign:Transitioner AutoApplyTransitionOrigins="True" mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.Main}">
+                <materialDesign:Transitioner.ItemContainerStyle>
+                    <Style TargetType="materialDesign:TransitionerSlide">
+                        <Setter Property="OpeningEffect" Value="{materialDesign:TransitionEffect SlideInFromLeft}"/>
+                    </Style>
+                </materialDesign:Transitioner.ItemContainerStyle>
+            </materialDesign:Transitioner>
         </DockPanel>
     </materialDesign:DrawerHost>
 

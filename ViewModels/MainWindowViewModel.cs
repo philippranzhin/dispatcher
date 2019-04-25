@@ -14,39 +14,23 @@
 
     public class MainWindowViewModel : BindableBase
     {
-        private readonly IDeviceDataProvider deviceDataProvider;
-
         private readonly IRegionManager regionManager;
 
         private readonly IRegionsProvider regionsProvider;
-
-        private bool surveyEnabled;
 
         private ObservableCollection<NavigableRegion> regions;
 
         private NavigableRegion selectedRegion;
 
-        public MainWindowViewModel(IDeviceDataProvider deviceDataProvider, IRegionManager regionManager, IRegionsProvider regionsProvider)
+        public MainWindowViewModel(IRegionManager regionManager, IRegionsProvider regionsProvider)
         {
-            this.deviceDataProvider = deviceDataProvider;
             this.regionManager = regionManager;
             this.regionsProvider = regionsProvider;
 
-            this.surveyEnabled = deviceDataProvider.SurveyStarted;
 
             this.regions = new ObservableCollection<NavigableRegion>(this.regionsProvider.Regions.Values.Where((r) => r.AvailableForUser));
 
             this.selectedRegion = this.regionsProvider.SelectedRegion;
-        }
-
-        public bool SurveyEnabled
-        {
-            get => this.surveyEnabled;
-            set
-            {
-                this.deviceDataProvider.SurveyStarted = value;
-                this.SetProperty(ref this.surveyEnabled, value);
-            }
         }
 
         public ObservableCollection<NavigableRegion> Regions

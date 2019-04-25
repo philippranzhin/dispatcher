@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace DispatcherDesktop.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -58,11 +61,38 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ПРИМЕНИТЬ.
+        /// </summary>
+        public static string ApplyBtnText {
+            get {
+                return ResourceManager.GetString("ApplyBtnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Приложение диспечтчеризации тепловых узлов академии МЧС.
         /// </summary>
         public static string AppName {
             get {
                 return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to поле не должно быть пустым.
+        /// </summary>
+        public static string EmptyInputErrorMsg {
+            get {
+                return ResourceManager.GetString("EmptyInputErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to период опроса (секунды).
+        /// </summary>
+        public static string SurveyPeriodLblText {
+            get {
+                return ResourceManager.GetString("SurveyPeriodLblText", resourceCulture);
             }
         }
         

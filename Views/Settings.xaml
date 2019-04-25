@@ -3,10 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
              xmlns:local="clr-namespace:DispatcherDesktop.Views"
+             xmlns:validationRules="clr-namespace:DispatcherDesktop.Helpers.ValidationRules"
+             xmlns:mvvm="http://prismlibrary.com/"
              mc:Ignorable="d" 
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            <Label>sadsad</Label>
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="200" Width="*"/>
+                <ColumnDefinition MinWidth="200" Width="*"/>
+                <ColumnDefinition MinWidth="200" Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0" Background="{DynamicResource MaterialDesignDivider}">
+                <materialDesign:ColorZone DockPanel.Dock="Top">
+                    <TextBlock Padding="10"  TextAlignment="Center" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="соединение"/>
+                </materialDesign:ColorZone>
+                <Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignRaisedButton}" Content="{x:Static properties:Resources.ApplyBtnText}"></Button>
+                <DockPanel DockPanel.Dock="Top" LastChildFill="False"  Margin="15">
+                    <CheckBox DockPanel.Dock="Top" IsChecked="{Binding SurveyEnabled}" Content="{x:Static properties:Resources.SurveyStartedLabel}"/>
+                    <TextBox
+                        DockPanel.Dock="Top"
+                        x:Name="NameTextBox"
+                        materialDesign:HintAssist.Hint="имя порта">
+                        <TextBox.Text>
+                            <Binding Path="PortName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </DockPanel>
+
+            </DockPanel>
+            <GridSplitter Grid.Column="0" ShowsPreview="False" Width="3"
+                          VerticalAlignment="Stretch" />
+            <DockPanel Grid.Column="1">
+                <materialDesign:ColorZone DockPanel.Dock="Top">
+                    <TextBlock Padding="10"  TextAlignment="Center" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="устройства"/>
+                </materialDesign:ColorZone>
+                <ListBox>
+
+                </ListBox>
+            </DockPanel>
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+                          VerticalAlignment="Stretch" />
+            <DockPanel Grid.Column="2" Background="{DynamicResource MaterialDesignDivider}">
+                <materialDesign:ColorZone DockPanel.Dock="Top">
+                    <TextBlock Padding="10"  TextAlignment="Center" Style="{DynamicResource MaterialDesignBody2TextBlock}" Text="данные"/>
+                </materialDesign:ColorZone>
+                <ListBox>
+
+                </ListBox>
+            </DockPanel>
+            <GridSplitter Grid.Column="2" ShowsPreview="False" Width="3"
+                          VerticalAlignment="Stretch" />
+        </Grid>
+    </DockPanel>
 </UserControl>

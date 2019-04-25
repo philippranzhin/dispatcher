@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApplyBtnText" xml:space="preserve">
+    <value>ПРИМЕНИТЬ</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>Приложение диспечтчеризации тепловых узлов академии МЧС</value>
+  </data>
+  <data name="EmptyInputErrorMsg" xml:space="preserve">
+    <value>поле не должно быть пустым</value>
+  </data>
+  <data name="SurveyPeriodLblText" xml:space="preserve">
+    <value>период опроса (секунды)</value>
   </data>
   <data name="SurveyStartedLabel" xml:space="preserve">
     <value>автоматический опрос</value>
