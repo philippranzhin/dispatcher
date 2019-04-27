@@ -35,8 +35,14 @@
         </Border>
         <GridSplitter Grid.Column="0" ShowsPreview="False" Width="3"
                       VerticalAlignment="Stretch" />
-        <DockPanel Grid.Column="1" Margin="25 0 25 15">
-            <ContentControl  
+        <DockPanel Grid.Column="1">
+            <DockPanel DockPanel.Dock="Bottom">
+                <ProgressBar
+                    Visibility="{Binding SurveyStarted, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    VerticalAlignment="Bottom"
+                    IsIndeterminate="True" />
+            </DockPanel>
+            <ContentControl  Margin="25 0 25 15"
                              mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.DeviceDetail}"
                              mvvm:RegionManager.RegionContext="{Binding SelectedItem, ElementName=ListOfDevices}"/>
         </DockPanel>

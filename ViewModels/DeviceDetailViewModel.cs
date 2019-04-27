@@ -16,13 +16,6 @@
         public DeviceDetailViewModel(IDeviceDataProvider dataProvider)
         {
             this.dataProvider = dataProvider;
-
-            this.PropertyChanged += (s, e) =>
-                {
-                    if (e.PropertyName == "DeviceData")
-                    {
-                    }
-                };
         }
 
         public DeviceDescription Device
@@ -41,14 +34,10 @@
                         };
                 }
 
-                if (this.dataProvider.RecentData.TryGetValue(value.Id, out var recentDeviceData))
-                {
-                    this.DeviceData = recentDeviceData;
-                }
-                else
-                {
-                    this.DeviceData = null;
-                }
+                this.DeviceData = 
+                    this.dataProvider.RecentData.TryGetValue(value.Id, out var recentDeviceData) 
+                        ? recentDeviceData 
+                        : null;
 
                 this.SetProperty(ref this.device, value);
             }

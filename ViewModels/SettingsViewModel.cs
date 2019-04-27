@@ -25,7 +25,7 @@
             this.settingsProvider = settingsProvider;
 
             this.surveyEnabled = deviceDataProvider.SurveyStarted;
-            this.portName = settingsProvider.ConnectionString;
+            this.portName = settingsProvider.ConnectionString; 
         }
 
         public bool SurveyEnabled
