@@ -11,7 +11,7 @@
     {
         private bool surveyEnabled;
 
-        private readonly IDeviceDataProvider deviceDataProvider;
+        private readonly ISurveyService surveyService;
 
         private readonly ISettingsProvider settingsProvider;
 
@@ -19,12 +19,13 @@
 
         private int surveyPeriod;
 
-        public SettingsViewModel(IDeviceDataProvider deviceDataProvider, ISettingsProvider settingsProvider)
+        public SettingsViewModel(ISurveyService surveyService, ISettingsProvider settingsProvider)
         {
-            this.deviceDataProvider = deviceDataProvider;
+            this.surveyService = surveyService;
             this.settingsProvider = settingsProvider;
 
-            this.surveyEnabled = deviceDataProvider.SurveyStarted;
+            this.surveyEnabled = surveyService.SurveyStarted;
+            this.surveyPeriod = settingsProvider.SurveyPeriodSeconds;
             this.portName = settingsProvider.ConnectionString; 
         }
 
@@ -51,7 +52,7 @@
         private void SaveConnectionSettings()
         {
             this.settingsProvider.SurveyPeriodSeconds = this.SurveyPeriod;
-            this.deviceDataProvider.SurveyStarted = this.SurveyEnabled;
+            this.surveyService.SurveyStarted = this.SurveyEnabled;
             this.settingsProvider.ConnectionString = this.PortName;
         }
     }

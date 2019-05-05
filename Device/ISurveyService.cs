@@ -5,13 +5,11 @@
 
     using DispatcherDesktop.Models;
 
-    public interface IDeviceDataProvider
+    public interface ISurveyService
     {
-        Dictionary<int, DeviceData> RecentData { get; }
-
         bool SurveyStarted { get; set; }
 
-        event EventHandler<DeviceData> DataReceived;
+        event EventHandler<uint> DataReceived;
 
         event EventHandler<bool> ServeyStartedChanged;
     }

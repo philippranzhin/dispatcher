@@ -5,6 +5,8 @@
     using DispatcherDesktop.Models;
     using DispatcherDesktop.ViewModels;
 
+    using MaterialDesignThemes.Wpf;
+
     using Prism.Common;
     using Prism.Regions;
 
@@ -23,7 +25,12 @@
         {
             var context = (ObservableObject<object>)sender;
             var device = (DeviceDescription)context.Value;
-            (this.DataContext as DeviceDetailViewModel).Device = device;
+            ((DeviceDetailViewModel)this.DataContext).Device = device;
+        }
+
+        private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
+        {
+            (this.DataContext as DeviceDetailViewModel)?.AddRegisterCommand?.Execute(eventargs.Parameter);
         }
     }
 }

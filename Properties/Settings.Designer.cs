@@ -46,5 +46,17 @@ namespace DispatcherDesktop.Properties {
                 this["PortName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Devices {
+            get {
+                return ((string)(this["Devices"]));
+            }
+            set {
+                this["Devices"] = value;
+            }
+        }
     }
 }

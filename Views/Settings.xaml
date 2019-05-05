@@ -38,6 +38,18 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
+                    <TextBox
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        materialDesign:HintAssist.Hint="период опроса (сек)">
+                        <TextBox.Text>
+                            <Binding Path="SurveyPeriod" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </DockPanel>
 
             </DockPanel>

@@ -9,7 +9,7 @@
     using DispatcherDesktop.Models;
     using DispatcherDesktop.Properties;
 
-    class DeviceDataProvider : IDeviceDataProvider, IDisposable
+    class SurveyService : ISurveyService, IDisposable
     {
         private readonly IDeviceDataReader dataReader;
 
@@ -17,21 +17,18 @@
 
         private readonly ISettingsProvider settingsProvider;
 
-        private readonly Dictionary<int, DeviceData> recentData;
-
         private readonly Timer lifeTimer;
 
         private bool surveyStarted;
 
         private volatile bool readCompleted;
 
-        public DeviceDataProvider(IDeviceDataReader dataReader, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider)
+        public SurveyService(IDeviceDataReader dataReader, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider)
         {
             this.dataReader = dataReader;
             this.configurationProvider = configurationProvider;
             this.settingsProvider = settingsProvider;
 
-            this.recentData = new Dictionary<int, DeviceData>();
             this.surveyStarted = false;
 
             this.lifeTimer = new Timer(this.settingsProvider.SurveyPeriodSeconds * 1000)
@@ -71,25 +68,16 @@
             }
         }
 
-        public Dictionary<int, DeviceData> RecentData => this.recentData;
-
-        public event EventHandler<DeviceData> DataReceived;
+        public event EventHandler<uint> DataReceived;
 
         public event EventHandler<bool> ServeyStartedChanged;
 
         private async Task Read(DeviceDescription description)
         {
             var receivedData = await this.dataReader.Read(description);
-            if (receivedData != null)
+            if (receivedData)
             {
-                if (this.recentData.ContainsKey(receivedData.Address))
-                {
-                    this.recentData.Remove(receivedData.Address);
-                }
-
-                this.recentData.Add(receivedData.Address, receivedData);
-
-                this.DataReceived?.Invoke(this, receivedData);
+                this.DataReceived?.Invoke(this, description.Id);
             }
         }
          
@@ -109,7 +97,7 @@
                     }
 
                     this.readCompleted = true;
-                });
+                }); 
         }
 
         public void Dispose()

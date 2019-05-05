@@ -6,6 +6,6 @@
 
     interface IDeviceDataReader
     {
-        Task<DeviceData> Read(DeviceDescription description);
+        Task<bool> Read(DeviceDescription description);
     }
 }

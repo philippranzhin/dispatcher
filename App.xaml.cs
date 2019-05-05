@@ -19,8 +19,8 @@
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<ISettingsProvider, SettingsProvider>();
-            containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, HardcodedDevices>();
-            containerRegistry.RegisterSingleton<IDeviceDataProvider, DeviceDataProvider>();
+            containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, DevicesConfigurationProvider>();
+            containerRegistry.RegisterSingleton<ISurveyService, SurveyService>();
             containerRegistry.RegisterSingleton<IDeviceDataReader, DeviceDataReader>();
             containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
         }

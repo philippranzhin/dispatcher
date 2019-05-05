@@ -1,21 +1,29 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Windows.Input;
+
     using DispatcherDesktop.Device;
     using DispatcherDesktop.Models;
 
+    using Prism.Commands;
     using Prism.Mvvm;
 
     public class DeviceDetailViewModel : BindableBase
     {
-        private readonly IDeviceDataProvider dataProvider;
+        private readonly ISurveyService dataProvider;
 
         private DeviceDescription device;
 
-        private DeviceData deviceData;
+        private ObservableCollection<RegisterDescription> registers;
 
-        public DeviceDetailViewModel(IDeviceDataProvider dataProvider)
+        private readonly IDevicesConfigurationProvider devicesConfiguration;
+
+        public DeviceDetailViewModel(ISurveyService dataProvider, IDevicesConfigurationProvider devicesConfiguration)
         {
             this.dataProvider = dataProvider;
+            this.devicesConfiguration = devicesConfiguration;
         }
 
         public DeviceDescription Device
@@ -27,26 +35,43 @@
                 {
                     this.dataProvider.DataReceived += (s, e) =>
                         {
-                            if (this.device != null && e.Address == this.device.Id)
+                            if (this.device != null && e == this.device.Id)
                             {
-                                this.DeviceData = e;
+                                this.RaisePropertyChanged(nameof(this.Device));
+                                this.Registers = new ObservableCollection<RegisterDescription>(this.Device.Registers);
                             }
                         };
                 }
 
-                this.DeviceData = 
-                    this.dataProvider.RecentData.TryGetValue(value.Id, out var recentDeviceData) 
-                        ? recentDeviceData 
-                        : null;
-
                 this.SetProperty(ref this.device, value);
+                this.Registers = new ObservableCollection<RegisterDescription>(this.device.Registers);
             }
         }
 
-        public DeviceData DeviceData
+        public ObservableCollection<RegisterDescription> Registers
         {
-            get => this.deviceData;
-            set => this.SetProperty(ref this.deviceData, value);
+            get => this.registers;
+            set => this.SetProperty(ref this.registers, value);
         }
+
+        public ICommand AddRegisterCommand => new DelegateCommand<bool?>(
+            (obj) =>
+                {
+                    var r = new RegisterDescription()
+                                {
+
+                                    Name = $"регистр #{this.Registers.Count}",
+                                    Description = "описание",
+                                    Postfix = "°",
+                                    IntegerAddress = (uint)this.Registers.Count
+                                };
+                    r.Data.Add(this.Registers.Count);
+
+                    this.device.Registers.Add(r);
+                    this.registers.Add(r);
+
+                    this.Registers = new ObservableCollection<RegisterDescription>(this.registers);
+                    this.devicesConfiguration.Save();
+                });
     }
 }
