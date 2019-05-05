@@ -6,6 +6,8 @@
     using System.Windows.Input;
 
     using DispatcherDesktop.Device;
+    using DispatcherDesktop.Device.Configuration;
+    using DispatcherDesktop.Device.Survey;
     using DispatcherDesktop.Models;
 
     using Prism.Commands;

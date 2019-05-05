@@ -4,6 +4,9 @@
 
     using DispatcherDesktop.Configuration;
     using DispatcherDesktop.Device;
+    using DispatcherDesktop.Device.Configuration;
+    using DispatcherDesktop.Device.Data;
+    using DispatcherDesktop.Device.Survey;
     using DispatcherDesktop.Navigation;
     using DispatcherDesktop.Views;
 
@@ -22,6 +25,7 @@
             containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, DevicesConfigurationProvider>();
             containerRegistry.RegisterSingleton<ISurveyService, SurveyService>();
             containerRegistry.RegisterSingleton<IDeviceDataReader, DeviceDataReader>();
+            containerRegistry.RegisterSingleton<IStorage, InMemoryStorage>();
             containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
         }
 

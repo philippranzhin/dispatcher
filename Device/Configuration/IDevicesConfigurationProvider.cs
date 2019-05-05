@@ -1,4 +1,4 @@
-﻿namespace DispatcherDesktop.Device
+﻿namespace DispatcherDesktop.Device.Configuration
 {
     using System;
     using System.Collections.Generic;

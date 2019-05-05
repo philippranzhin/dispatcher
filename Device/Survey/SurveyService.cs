@@ -1,13 +1,13 @@
-﻿namespace DispatcherDesktop.Device
+﻿namespace DispatcherDesktop.Device.Survey
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Timers;
 
     using DispatcherDesktop.Configuration;
+    using DispatcherDesktop.Device.Configuration;
+    using DispatcherDesktop.Device.Data;
     using DispatcherDesktop.Models;
-    using DispatcherDesktop.Properties;
 
     class SurveyService : ISurveyService, IDisposable
     {
@@ -68,17 +68,11 @@
             }
         }
 
-        public event EventHandler<uint> DataReceived;
-
         public event EventHandler<bool> ServeyStartedChanged;
 
         private async Task Read(DeviceDescription description)
         {
-            var receivedData = await this.dataReader.Read(description);
-            if (receivedData)
-            {
-                this.DataReceived?.Invoke(this, description.Id);
-            }
+            await this.dataReader.Read(description);
         }
          
         private void ReadAll()

@@ -2,9 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Input;
 
     using DispatcherDesktop.Device;
+    using DispatcherDesktop.Device.Configuration;
+    using DispatcherDesktop.Device.Data;
+    using DispatcherDesktop.Device.Survey;
     using DispatcherDesktop.Models;
 
     using Prism.Commands;
@@ -12,18 +16,18 @@
 
     public class DeviceDetailViewModel : BindableBase
     {
-        private readonly ISurveyService dataProvider;
-
-        private DeviceDescription device;
-
-        private ObservableCollection<RegisterDescription> registers;
+        private readonly IStorage storage;
 
         private readonly IDevicesConfigurationProvider devicesConfiguration;
 
-        public DeviceDetailViewModel(ISurveyService dataProvider, IDevicesConfigurationProvider devicesConfiguration)
+        private DeviceDescription device;
+
+        private ObservableCollection<Register> registers;
+
+        public DeviceDetailViewModel(IDevicesConfigurationProvider devicesConfiguration, IStorage storage)
         {
-            this.dataProvider = dataProvider;
             this.devicesConfiguration = devicesConfiguration;
+            this.storage = storage;
         }
 
         public DeviceDescription Device
@@ -33,22 +37,21 @@
             {
                 if (this.device == null)
                 {
-                    this.dataProvider.DataReceived += (s, e) =>
+                    this.storage.Saved += (s, e) =>
                         {
-                            if (this.device != null && e == this.device.Id)
+                            if (this.device != null && e.Id.Device == this.device.Id)
                             {
-                                this.RaisePropertyChanged(nameof(this.Device));
-                                this.Registers = new ObservableCollection<RegisterDescription>(this.Device.Registers);
+                                this.UpdateRegisterData();
                             }
                         };
                 }
 
                 this.SetProperty(ref this.device, value);
-                this.Registers = new ObservableCollection<RegisterDescription>(this.device.Registers);
+                this.UpdateRegisterData();
             }
         }
 
-        public ObservableCollection<RegisterDescription> Registers
+        public ObservableCollection<Register> Registers
         {
             get => this.registers;
             set => this.SetProperty(ref this.registers, value);
@@ -63,15 +66,26 @@
                                     Name = $"регистр #{this.Registers.Count}",
                                     Description = "описание",
                                     Postfix = "°",
-                                    IntegerAddress = (uint)this.Registers.Count
+                                    IntegerAddress = (uint)(this.Registers.Count + 1)
                                 };
-                    r.Data.Add(this.Registers.Count);
+
+
+                    this.device = this.devicesConfiguration.Devices.First((d) => d.Id == this.device.Id);
 
                     this.device.Registers.Add(r);
-                    this.registers.Add(r);
-
-                    this.Registers = new ObservableCollection<RegisterDescription>(this.registers);
                     this.devicesConfiguration.Save();
+                    this.UpdateRegisterData();
                 });
+
+        private void UpdateRegisterData()
+        {
+            var registerModels = this.device.Registers.Select(
+                (r) => new Register(r)
+                           {
+                               Data = this.storage.Get(new RegisterId(this.device, r)).LastOrDefault(),
+                           }); 
+
+            this.Registers = new ObservableCollection<Register>(registerModels);
+        }
     }
 }

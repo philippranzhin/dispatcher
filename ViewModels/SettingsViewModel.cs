@@ -4,6 +4,7 @@
 
     using DispatcherDesktop.Configuration;
     using DispatcherDesktop.Device;
+    using DispatcherDesktop.Device.Survey;
 
     using Prism.Commands;
     using Prism.Mvvm;

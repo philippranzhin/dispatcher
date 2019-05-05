@@ -101,7 +101,7 @@
                                             DockPanel.Dock="Left" 
                                             TextWrapping="WrapWithOverflow" 
                                             Style="{DynamicResource MaterialDesignSubheadingTextBlock}" 
-                                            LineStackingStrategy="MaxHeight" Text="{Binding Name}"/> 
+                                            LineStackingStrategy="MaxHeight" Text="{Binding Description.Name}"/> 
                                     </DockPanel>
                                 </materialDesign:ColorZone>
                                 <TextBlock DockPanel.Dock="Bottom" 
@@ -111,10 +111,10 @@
                                            Padding="2"
                                            HorizontalAlignment="Right"
                                            LineStackingStrategy="MaxHeight" 
-                                           Text="{Binding DataSliceDate}"
+                                           Text="{Binding Data.SaveDate}"
                                 />
                                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
-                                    <Run Text="{Binding LatestData, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Postfix, Mode=OneWay}"/>
+                                    <Run Text="{Binding Data.Value, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Description.Postfix, Mode=OneWay}"/>
                                 </TextBlock>
                             </DockPanel>
                         </materialDesign:Card>

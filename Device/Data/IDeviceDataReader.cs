@@ -1,4 +1,4 @@
-﻿namespace DispatcherDesktop.Device
+﻿namespace DispatcherDesktop.Device.Data
 {
     using System.Threading.Tasks;
 
@@ -6,6 +6,6 @@
 
     interface IDeviceDataReader
     {
-        Task<bool> Read(DeviceDescription description);
+        Task Read(DeviceDescription description);
     }
 }
