@@ -1,5 +1,6 @@
 ﻿namespace DispatcherDesktop.Views
 {
+    using System.Windows;
     using System.Windows.Controls;
 
     using DispatcherDesktop.Models;
@@ -31,6 +32,14 @@
         private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
         {
             (this.DataContext as DeviceDetailViewModel)?.AddRegisterCommand?.Execute(eventargs.Parameter);
+        }
+
+        private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Control)?.DataContext is RegisterDescription description)
+            {
+                (this.DataContext as DeviceDetailViewModel)?.RemoveRegisterCommand.Execute(description);
+            }
         }
     }
 }

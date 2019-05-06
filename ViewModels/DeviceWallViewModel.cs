@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
 
@@ -97,6 +98,18 @@
                         this.devicesConfiguration.Save(this.devices);
                         this.AddingDeviceId = null;
                         this.AddingDeviceName = null;
+                    }
+                });
+
+        public ICommand RemoveDeviceCommand => new DelegateCommand<DeviceDescription>(
+            (deviceDescription) =>
+                {
+                    if (deviceDescription != null)
+                    {
+                        this.devices.Remove(deviceDescription);
+
+                        this.devicesConfiguration.Save(this.devices);
+                        this.SelectedDevice = this.devices.LastOrDefault();
                     }
                 });
     }

@@ -80,12 +80,17 @@
                         Height="24"
                         Width="24" />
                     </Button>
-                    <ListBox x:Name="ListOfDevices"  SelectedIndex="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
+                    <ListBox x:Name="ListOfDevices" HorizontalContentAlignment="Stretch" SelectedIndex="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="5">
+                                    <materialDesign:PopupBox DockPanel.Dock="Right" HorizontalAlignment="Right" PlacementMode="BottomAndAlignRightEdges">
+                                        <ListBox>
+                                            <ListBoxItem Selected="ListBoxItem_OnSelected">удалить</ListBoxItem>
+                                        </ListBox>
+                                    </materialDesign:PopupBox>
                                     <TextBlock DockPanel.Dock="Left">
-                                    <Run Text="{Binding Id, Mode=OneWay}" FontWeight="SemiBold" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Name, Mode=OneWay}"/>
+                                        <Run Text="{Binding Id, Mode=OneWay}" FontWeight="SemiBold" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Name, Mode=OneWay}"/>
                                     </TextBlock>
                                 </DockPanel>
                             </DataTemplate>

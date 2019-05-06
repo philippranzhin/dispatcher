@@ -94,7 +94,8 @@
                                     <DockPanel>
                                         <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
                                             <ListBox>
-                                                <ListBoxItem>Записать новое значение</ListBoxItem>
+                                                    <ListBoxItem Selected="ListBoxItem_OnSelected" DataContext="{Binding Description}">удалить</ListBoxItem>
+                                                    <ListBoxItem>изменить значение</ListBoxItem>
                                             </ListBox>
                                         </materialDesign:PopupBox>
                                         <TextBlock 
@@ -113,9 +114,10 @@
                                            LineStackingStrategy="MaxHeight" 
                                            Text="{Binding Data.SaveDate}"
                                 />
-                                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
+                                <TextBlock DockPanel.Dock="Top" Style="{DynamicResource MaterialDesignTitleTextBlock}" Padding="10" Margin="5">
                                     <Run Text="{Binding Data.Value, Mode=OneWay}" Foreground="{DynamicResource SecondaryAccentBrush}"/> <Run Text="{Binding Description.Postfix, Mode=OneWay}"/>
                                 </TextBlock>
+                                    <TextBlock DockPanel.Dock="Top"  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Padding="10 0 10 0" TextWrapping="WrapWithOverflow" Text="{Binding Description.Description}"/>
                             </DockPanel>
                         </materialDesign:Card>
                     </DataTemplate>

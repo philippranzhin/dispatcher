@@ -69,16 +69,27 @@
                                     IntegerAddress = (uint)(this.Registers.Count + 1)
                                 };
 
-
-                    this.device = this.devicesConfiguration.Devices.First((d) => d.Id == this.device.Id);
-
                     this.device.Registers.Add(r);
-                    this.devicesConfiguration.Save();
+                    this.devicesConfiguration.Save(this.device);
+                    this.UpdateRegisterData();
+                });
+
+        public ICommand RemoveRegisterCommand => new DelegateCommand<RegisterDescription>(
+            (register) =>
+                {
+                    this.device.Registers.Remove(register);
+                    this.devicesConfiguration.Save(this.device);
                     this.UpdateRegisterData();
                 });
 
         private void UpdateRegisterData()
         {
+            if (this.device == null)
+            {
+                this.Registers = new ObservableCollection<Register>();
+                return;
+            }
+
             var registerModels = this.device.Registers.Select(
                 (r) => new Register(r)
                            {

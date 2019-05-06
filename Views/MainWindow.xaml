@@ -21,7 +21,7 @@
         Height="350"
         Width="525">
 
-    <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+    <materialDesign:DrawerHost x:Name="DrawerHost" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
         <materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel MinWidth="212">
                 <materialDesign:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top">
@@ -34,7 +34,7 @@
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadlineTextBlock}">Настройки</TextBlock>
                     </DockPanel>
                 </materialDesign:ColorZone>
-                <ListBox DockPanel.Dock="Top" SelectedItem="{Binding SelectedRegion, Mode=TwoWay}" ItemsSource="{Binding Regions}">
+                <ListBox DockPanel.Dock="Top" SelectionChanged="Selector_OnSelectionChanged" SelectedItem="{Binding SelectedRegion, Mode=TwoWay}" ItemsSource="{Binding Regions}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
