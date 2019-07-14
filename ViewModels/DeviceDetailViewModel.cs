@@ -65,7 +65,15 @@
         public ICommand AddRegisterCommand => new DelegateCommand<RegisterDescription>(
             (register) =>
                 {
-                    this.device.Registers.Add(register);
+                    var newReg = new RegisterDescription()
+                                     {
+                                         Description = register.Description,
+                                         Name = register.Name,
+                                         IntegerAddress = register.IntegerAddress,
+                                         FloatAddress = register.FloatAddress,
+                                         Postfix = register.Postfix,
+                                     };
+                    this.device.Registers.Add(newReg);
                     this.devicesConfiguration.Save(this.device);
                 });
 
