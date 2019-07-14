@@ -12,21 +12,6 @@
 
         public const string Settings = "SettingsRegion";
 
-        public static string RegionNameToView(string name)
-        {
-            switch (name)
-            {
-                case Main: 
-                    return typeof(MainWindow).FullName;
-                case DeviceWall:
-                    return typeof(DeviceWall).FullName;
-                case DeviceDetail:
-                    return typeof(DeviceDetail).FullName;
-                case Settings:
-                    return typeof(Settings).FullName;
-                default:
-                    return string.Empty;
-            }
-        }
+        public const string AddRegister = "AddRegister";
     }
 }

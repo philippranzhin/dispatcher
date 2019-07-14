@@ -17,6 +17,9 @@
                                        RegionNames.Main, this.MainRegion
                                    },
                                    {
+                                       RegionNames.AddRegister, new NavigableRegion(RegionNames.AddRegister, typeof(AddRegister))
+                                   },
+                                   {
                                        RegionNames.Settings,
                                        new NavigableRegion(
                                            RegionNames.Settings,

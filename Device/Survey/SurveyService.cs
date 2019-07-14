@@ -38,8 +38,6 @@
 
             this.readCompleted = true;
 
-            this.ReadAll();
-
             this.lifeTimer.Elapsed += (s, e) => this.ReadAll();
         }
 
@@ -87,7 +85,7 @@
                 {
                     foreach (var device in this.configurationProvider.Devices)
                     {
-                       await this.Read(device);
+                        await Task.WhenAny(this.Read(device), Task.Delay(7000));
                     }
 
                     this.readCompleted = true;

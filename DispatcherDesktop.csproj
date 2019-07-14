@@ -61,6 +61,7 @@
     <Compile Include="Device\Data\InMemoryStorage.cs" />
     <Compile Include="Device\Data\IStorage.cs" />
     <Compile Include="Device\Data\RegisterId.cs" />
+    <Compile Include="Device\Driver\SerialAdapter.cs" />
     <Compile Include="Helpers\BooleanToVisibilityconverter.cs" />
     <Compile Include="Helpers\ValidationRules\NotEmptyRule.cs" />
     <Compile Include="Models\Register.cs" />
@@ -70,9 +71,17 @@
     <Compile Include="Navigation\NavigableRegion.cs" />
     <Compile Include="Navigation\RegionNames.cs" />
     <Compile Include="Navigation\RegionsProvider.cs" />
+    <Compile Include="ViewModels\AddRegisterViewModel.cs" />
+    <Compile Include="Views\AddRegister.xaml.cs">
+      <DependentUpon>AddRegister.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DeviceDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +160,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="NSModbus4.Serial">
+      <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity">
       <Version>7.1.0.431</Version>

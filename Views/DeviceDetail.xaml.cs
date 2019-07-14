@@ -31,6 +31,13 @@
 
         private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
         {
+            eventargs.Handled = true;
+
+            if (eventargs.Parameter == null)
+            {
+                return;
+            }
+
             (this.DataContext as DeviceDetailViewModel)?.AddRegisterCommand?.Execute(eventargs.Parameter);
         }
 

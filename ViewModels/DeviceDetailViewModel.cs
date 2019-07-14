@@ -1,5 +1,6 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -13,6 +14,8 @@
 
     using Prism.Commands;
     using Prism.Mvvm;
+
+    using Unity.Attributes;
 
     public class DeviceDetailViewModel : BindableBase
     {
@@ -28,6 +31,8 @@
         {
             this.devicesConfiguration = devicesConfiguration;
             this.storage = storage;
+
+            this.devicesConfiguration.Saved += ((s, e) => this.UpdateRegisterData());
         }
 
         public DeviceDescription Device
@@ -39,7 +44,7 @@
                 {
                     this.storage.Saved += (s, e) =>
                         {
-                            if (this.device != null && e.Id.Device == this.device.Id)
+                            if (this.device != null)
                             {
                                 this.UpdateRegisterData();
                             }
@@ -57,21 +62,11 @@
             set => this.SetProperty(ref this.registers, value);
         }
 
-        public ICommand AddRegisterCommand => new DelegateCommand<bool?>(
-            (obj) =>
+        public ICommand AddRegisterCommand => new DelegateCommand<RegisterDescription>(
+            (register) =>
                 {
-                    var r = new RegisterDescription()
-                                {
-
-                                    Name = $"регистр #{this.Registers.Count}",
-                                    Description = "описание",
-                                    Postfix = "°",
-                                    IntegerAddress = (uint)(this.Registers.Count + 1)
-                                };
-
-                    this.device.Registers.Add(r);
+                    this.device.Registers.Add(register);
                     this.devicesConfiguration.Save(this.device);
-                    this.UpdateRegisterData();
                 });
 
         public ICommand RemoveRegisterCommand => new DelegateCommand<RegisterDescription>(
@@ -79,7 +74,6 @@
                 {
                     this.device.Registers.Remove(register);
                     this.devicesConfiguration.Save(this.device);
-                    this.UpdateRegisterData();
                 });
 
         private void UpdateRegisterData()
