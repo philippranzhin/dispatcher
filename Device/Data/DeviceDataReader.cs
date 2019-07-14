@@ -53,20 +53,7 @@ namespace DispatcherDesktop.Device.Data
             {
                 var startAddress = (ushort)requestGroup.First().IntegerAddress;
 
-                var registersNumber = requestGroup.Select(
-                    (r) =>
-                        {
-                            if (r.FloatAddress == null)
-                            {
-                                return 1;
-                            }
-                            else
-                            {
-                                return 2;
-                            }
-                        }
-                    
-                    ).Sum();
+                var registersNumber = requestGroup.Select(this.RegisterLength).Sum();
 
                 try
                 {
@@ -110,7 +97,7 @@ namespace DispatcherDesktop.Device.Data
 
             foreach (var register in descriptions)
             {
-                var count = (int)this.RegisterWeight(register);
+                var count = this.RegisterLength(register);
 
                 var bytes = data.Skip(i).Take(count).ToArray();
 
@@ -130,6 +117,18 @@ namespace DispatcherDesktop.Device.Data
                 }
 
                 i += count;
+            }
+        }
+
+        private int RegisterLength(RegisterDescription register)
+        {
+            if (register.FloatAddress == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
             }
         }
 
