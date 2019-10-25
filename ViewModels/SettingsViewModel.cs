@@ -25,7 +25,9 @@
             this.surveyService = surveyService;
             this.settingsProvider = settingsProvider;
 
-            this.surveyEnabled = surveyService.SurveyStarted;
+			surveyService.SurveyStarted = settingsProvider.SurveyEnabled;
+			this.surveyEnabled = settingsProvider.SurveyEnabled;
+
             this.surveyPeriod = settingsProvider.SurveyPeriodSeconds;
             this.portName = settingsProvider.ConnectionString; 
         }
@@ -52,8 +54,10 @@
 
         private void SaveConnectionSettings()
         {
-            this.settingsProvider.SurveyPeriodSeconds = this.SurveyPeriod;
-            this.surveyService.SurveyStarted = this.SurveyEnabled;
+			this.surveyService.SurveyStarted = this.SurveyEnabled;
+
+			this.settingsProvider.SurveyEnabled = this.SurveyEnabled;
+			this.settingsProvider.SurveyPeriodSeconds = this.SurveyPeriod;
             this.settingsProvider.ConnectionString = this.PortName;
         }
     }

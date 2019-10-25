@@ -56,8 +56,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration\DeviceStorage.cs" />
-    <Compile Include="Configuration\IDeviceStorage.cs" />
     <Compile Include="Device\Data\InMemoryStorage.cs" />
     <Compile Include="Device\Data\IStorage.cs" />
     <Compile Include="Device\Data\RegisterId.cs" />

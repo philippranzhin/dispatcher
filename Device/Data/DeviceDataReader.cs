@@ -1,6 +1,4 @@
-﻿
-
-namespace DispatcherDesktop.Device.Data
+﻿namespace DispatcherDesktop.Device.Data
 {
     using System;
     using System.Collections.Generic;
@@ -38,12 +36,17 @@ namespace DispatcherDesktop.Device.Data
 
             if (!port.IsOpen)
             {
-                port.Open();
+                try
+                {
+                    port.Open();
+                }
+                catch (Exception)
+                {
+                    return;
+                }
             }
 
             
-
-
             IModbusSerialMaster master = ModbusSerialMaster.CreateRtu(new SerialAdapter(port));
             master.Transport.ReadTimeout = 3000;
 
@@ -53,7 +56,7 @@ namespace DispatcherDesktop.Device.Data
             {
                 var startAddress = (ushort)requestGroup.First().IntegerAddress;
 
-                var registersNumber = requestGroup.Select(this.RegisterLength).Sum();
+                var registersNumber = (int)(this.RegisterWeight(requestGroup.Last()) - startAddress + 1);
 
                 try
                 {
@@ -70,8 +73,38 @@ namespace DispatcherDesktop.Device.Data
                 }
                
             }
+
+            port.Close();
         }
 
+        public List<List<RegisterDescription>> SplitRegistersInfo(List<RegisterDescription> registers)
+        {
+            var sorted = registers.OrderBy(this.RegisterWeight);
+
+            var min = this.RegisterWeight(sorted.First());
+            var i = 0;
+
+            var requestQueue = new List<List<RegisterDescription>>() { new List<RegisterDescription>() };
+
+            foreach (var registerInfo in sorted)
+            {
+                var current = this.RegisterWeight(registerInfo);
+
+                if (current < (min + 120))
+                {
+                    requestQueue.ElementAt(i).Add(registerInfo);
+                }
+                else
+                {
+                    i++;
+                    min = current;
+                    requestQueue.Add(new List<RegisterDescription>() { registerInfo });
+                }
+            }
+
+
+            return requestQueue;
+        }
 
         private uint RegisterWeight(RegisterDescription r)
         {
@@ -91,12 +124,16 @@ namespace DispatcherDesktop.Device.Data
             return floatData[0];
         }
 
-        private void ParseResult(DeviceDescription device, List<RegisterDescription> descriptions, int length, ushort[] data)
+        public void ParseResult(DeviceDescription device, List<RegisterDescription> descriptions, int length, ushort[] data)
         {
+            var startOffset = (int)descriptions.First().IntegerAddress;
+
             var i = 0;
 
             foreach (var register in descriptions)
             {
+                i =  (int)register.IntegerAddress - startOffset;
+
                 var count = this.RegisterLength(register);
 
                 var bytes = data.Skip(i).Take(count).ToArray();
@@ -115,50 +152,12 @@ namespace DispatcherDesktop.Device.Data
                 {
                     return;
                 }
-
-                i += count;
             }
         }
 
         private int RegisterLength(RegisterDescription register)
         {
-            if (register.FloatAddress == null)
-            {
-                return 1;
-            }
-            else
-            {
-                return 2;
-            }
-        }
-
-        private List<List<RegisterDescription>> SplitRegistersInfo(List<RegisterDescription> registers)
-        {
-            var sorted = registers.OrderBy(this.RegisterWeight);
-
-            var min = this.RegisterWeight(sorted.First());
-            var i = 0;
-
-            var requestQueue = new List<List<RegisterDescription>>() { new List<RegisterDescription>() };
-
-            foreach (var registerInfo in sorted)
-            {
-                var curr = this.RegisterWeight(registerInfo);
-
-                if (curr < (min + 120))
-                {
-                    requestQueue.ElementAt(i).Add(registerInfo);
-                }
-                else
-                {
-                    i++;
-                    min = curr;
-                    requestQueue.Add(new List<RegisterDescription>() { registerInfo });
-                }
-            }
-
-
-            return requestQueue;
+            return register.FloatAddress == null ? 1 : 2;
         }
     }
 }

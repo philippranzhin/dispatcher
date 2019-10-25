@@ -11,10 +11,10 @@
             this.Registers = registers;
         }
 
-        public uint Id { get ; }
+        public virtual uint Id { get ; }
 
         public string Name { get; }
 
-        public List<RegisterDescription> Registers { get; }
+        public virtual List<RegisterDescription> Registers { get; }
     }
 }

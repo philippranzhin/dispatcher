@@ -70,7 +70,14 @@
 
         private async Task Read(DeviceDescription description)
         {
-            await this.dataReader.Read(description);
+			try
+			{
+				await this.dataReader.Read(description);
+			}
+            catch
+			{
+				// ignore now, will add logger
+			}
         }
          
         private void ReadAll()
@@ -85,7 +92,7 @@
                 {
                     foreach (var device in this.configurationProvider.Devices)
                     {
-                        await Task.WhenAny(this.Read(device), Task.Delay(7000));
+                        await Task.WhenAny(this.Read(device), Task.Delay(80000));
                     }
 
                     this.readCompleted = true;

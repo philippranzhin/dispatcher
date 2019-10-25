@@ -23,5 +23,15 @@
                 Settings.Default.Save();
             }
         }
-    }
+
+		public bool SurveyEnabled
+		{
+			get => Settings.Default.SurveyEnabled;
+			set
+			{
+				Settings.Default.SurveyEnabled = value;
+				Settings.Default.Save();
+			}
+		}
+	}
 }

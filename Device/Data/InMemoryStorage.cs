@@ -13,6 +13,11 @@
 
         public void Save(RegisterData data)
         {
+            if (this.data.Count > 10000)
+            {
+                this.data.Clear();
+            }
+
             if (this.data.TryGetValue(data.Id, out var value))
             {
                 value.Add(data);

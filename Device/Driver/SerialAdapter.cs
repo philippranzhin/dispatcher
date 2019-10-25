@@ -89,21 +89,28 @@ namespace DispatcherDesktop.Device.Driver
         public void Write(byte[] buffer, int offset, int count)
         {
             this.wroteBytes.Clear();
-            var length = offset + count;
 
-            for (var i = offset; i < length; i++)
+            try
             {
-                if (buffer.Length > i)
-                {
-                    this.wroteBytes.Add(buffer[i]);
-                }
-                else
-                {
-                    break;
-                }
-            }
+                var length = offset + count;
 
-            this.serialPort.Write(buffer, offset, count);
+                for (var i = offset; i < length; i++)
+                {
+                    if (buffer.Length > i)
+                    {
+                        this.wroteBytes.Add(buffer[i]);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                this.serialPort.Write(buffer, offset, count);
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         public void Dispose()

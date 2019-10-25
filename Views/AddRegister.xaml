@@ -13,9 +13,8 @@
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <DockPanel
-        
-        Margin="15"
         Width="300"
+        Margin="15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignTitleTextBlock}">
@@ -28,9 +27,9 @@
             <Button
                 Margin="0,8,8,0"
                 Command="materialDesign:DialogHost.CloseDialogCommand"
+                CommandParameter="{Binding RegisterDescription}"
                 IsDefault="True"
                 IsEnabled="{Binding CanSave}"
-                CommandParameter="{Binding RegisterDescription}"
                 Style="{StaticResource MaterialDesignFlatButton}"
                 TabIndex="6">
                 ПРИНЯТЬ
@@ -84,14 +83,14 @@
                 DockPanel.Dock="Top"
                 TabIndex="3"
                 Text="{Binding IntegerAddress, UpdateSourceTrigger=PropertyChanged}" />
-            <DockPanel DockPanel.Dock="Top" Margin="10 10 10 0">
+            <DockPanel Margin="10,10,10,0" DockPanel.Dock="Top">
                 <TextBlock DockPanel.Dock="Left" Text="С плавающей точкой" />
                 <ToggleButton
                     x:Name="IsFloatCheckbox"
                     DockPanel.Dock="Right"
-                    TabIndex="4"
+                    IsChecked="{Binding IsFloat}"
                     Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                    IsChecked="{Binding IsFloat}"/>
+                    TabIndex="4" />
             </DockPanel>
             <TextBox
                 Margin="5"
@@ -99,8 +98,8 @@
                 materialDesign:HintAssist.Hint="Адрес дробного значения"
                 materialDesign:HintAssist.IsFloating="True"
                 DockPanel.Dock="Top"
-                TabIndex="5"
                 IsEnabled="{Binding ElementName=IsFloatCheckbox, Path=IsChecked}"
+                TabIndex="5"
                 Text="{Binding FloatAddress, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
     </DockPanel>
