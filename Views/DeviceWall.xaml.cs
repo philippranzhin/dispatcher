@@ -3,8 +3,8 @@
     using System.Windows;
     using System.Windows.Controls;
 
-    using DispatcherDesktop.Models;
-    using DispatcherDesktop.ViewModels;
+    using Models;
+    using ViewModels;
 
     using MaterialDesignThemes.Wpf;
 

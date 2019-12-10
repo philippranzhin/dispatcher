@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 namespace DispatcherDesktop.Views
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for LogView.xaml
     /// </summary>
-    public partial class Settings : UserControl
+    public partial class LogView : UserControl
     {
-        public Settings()
+        public LogView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

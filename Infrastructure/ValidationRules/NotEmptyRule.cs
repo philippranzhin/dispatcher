@@ -1,4 +1,4 @@
-﻿namespace DispatcherDesktop.Helpers.ValidationRules
+﻿namespace DispatcherDesktop.Infrastructure.ValidationRules
 {
     using System.Globalization;
     using System.Windows.Controls;

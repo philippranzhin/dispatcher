@@ -1,14 +1,18 @@
-﻿namespace DispatcherDesktop
+﻿using System;
+using System.Windows.Threading;
+
+namespace DispatcherDesktop
 {
     using System.Windows;
 
-    using DispatcherDesktop.Configuration;
-    using DispatcherDesktop.Device;
+    using Configuration;
+    using Device;
     using DispatcherDesktop.Device.Configuration;
-    using DispatcherDesktop.Device.Data;
-    using DispatcherDesktop.Device.Survey;
-    using DispatcherDesktop.Navigation;
-    using DispatcherDesktop.Views;
+    using Device.Data;
+    using Device.Logger;
+    using Device.Survey;
+    using Navigation;
+    using Views;
 
     using Prism.Ioc;
     using Prism.Regions;
@@ -24,9 +28,10 @@
             containerRegistry.RegisterSingleton<ISettingsProvider, SettingsProvider>();
             containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, DevicesConfigurationProvider>();
             containerRegistry.RegisterSingleton<ISurveyService, SurveyService>();
-            containerRegistry.RegisterSingleton<IDeviceDataReader, DeviceDataReader>();
+            containerRegistry.RegisterSingleton<IDeviceIoDriver, DeviceIoDriver>();
             containerRegistry.RegisterSingleton<IStorage, InMemoryStorage>();
             containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
+            containerRegistry.RegisterSingleton<IUiLogger, UiLogger>();
         }
 
         protected override Window CreateShell()
@@ -34,7 +39,7 @@
             return this.Container.Resolve<MainWindow>();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e) 
         {
             base.OnStartup(e);
 
@@ -66,6 +71,11 @@
             object view = this.Container.Resolve(region.Type);
             
             mainRegion.Add(view);
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message + "\n"+e.Exception.StackTrace, "Exception", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

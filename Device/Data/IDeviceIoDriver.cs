@@ -2,10 +2,12 @@
 {
     using System.Threading.Tasks;
 
-    using DispatcherDesktop.Models;
+    using Models;
 
-    interface IDeviceDataReader
+    public interface IDeviceIoDriver
     {
         Task Read(DeviceDescription description);
+
+        Task<bool> Write(RegisterWriteData request);
     }
 }

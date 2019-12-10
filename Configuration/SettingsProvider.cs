@@ -1,6 +1,6 @@
 ﻿namespace DispatcherDesktop.Configuration
 {
-    using DispatcherDesktop.Properties;
+    using Properties;
 
     public class SettingsProvider : ISettingsProvider
     {

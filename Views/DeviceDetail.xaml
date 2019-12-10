@@ -13,9 +13,18 @@
     d:DesignWidth="200"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <materialDesign:DialogHost DialogClosing="DialogHost_OnDialogClosing">
+    <materialDesign:DialogHost x:Name="Dialog" DialogClosing="OnDialogClosing">
         <materialDesign:DialogHost.DialogContent>
-            <ContentControl mvvm:RegionManager.RegionContext="{Binding Device}" mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.AddRegister}" />
+            <DockPanel>
+                <ContentControl
+                    mvvm:RegionManager.RegionContext="{Binding Device}"
+                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.AddRegister}"
+                    Visibility="{Binding RegisterAdding, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <ContentControl
+                    mvvm:RegionManager.RegionContext="{Binding RegisterToWriteValue}"
+                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.WriteRegisterValue}"
+                    Visibility="{Binding RegisterValueWriting, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </DockPanel>
         </materialDesign:DialogHost.DialogContent>
         <DockPanel VerticalAlignment="Stretch">
             <DockPanel>
@@ -23,6 +32,7 @@
                     <Button
                         Margin="15"
                         HorizontalAlignment="Right"
+                        Click="AddRegisterButton_OnClick"
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                         DockPanel.Dock="Right"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -59,10 +69,10 @@
                                     <DockPanel>
                                         <materialDesign:ColorZone Padding="10" DockPanel.Dock="Top">
                                             <DockPanel>
-                                                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                                                <materialDesign:PopupBox DockPanel.Dock="Right"  Opened="OnRegisterCardPopupOpen"  PlacementMode="BottomAndAlignRightEdges">
                                                     <ListBox>
-                                                        <ListBoxItem DataContext="{Binding Description}" Selected="ListBoxItem_OnSelected">удалить</ListBoxItem>
-                                                        <ListBoxItem>изменить значение</ListBoxItem>
+                                                        <ListBoxItem DataContext="{Binding Description}" Selected="OnRemoveRegister">удалить</ListBoxItem>
+                                                        <ListBoxItem DataContext="{Binding Description}" Selected="OnWriteRegisterValue">изменить значение</ListBoxItem>
                                                     </ListBox>
                                                 </materialDesign:PopupBox>
                                                 <TextBlock

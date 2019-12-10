@@ -1,12 +1,12 @@
 ﻿namespace DispatcherDesktop.Device.Data
 {
-    using DispatcherDesktop.Models;
+    using Models;
 
     public struct RegisterId
     {
-        public RegisterId(DeviceDescription device, RegisterDescription register)
+        public RegisterId(uint device, RegisterDescription register)
         {
-            this.Device = device.Id;
+            this.Device = device;
             this.Register = register.IntegerAddress;
         }
 

@@ -59,9 +59,14 @@
     <Compile Include="Device\Data\InMemoryStorage.cs" />
     <Compile Include="Device\Data\IStorage.cs" />
     <Compile Include="Device\Data\RegisterId.cs" />
+    <Compile Include="Device\Logger\IUiLogger.cs" />
+    <Compile Include="Device\Logger\UiLogger.cs" />
     <Compile Include="Device\Driver\SerialAdapter.cs" />
-    <Compile Include="Helpers\BooleanToVisibilityconverter.cs" />
-    <Compile Include="Helpers\ValidationRules\NotEmptyRule.cs" />
+    <Compile Include="Infrastructure\BooleanToHiddenVisibilityConverter.cs" />
+    <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Infrastructure\DeviceDetailDialogHelper.cs" />
+    <Compile Include="Infrastructure\InvertBoolConverter.cs" />
+    <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisterData.cs" />
     <Compile Include="Models\RegisterDescription.cs" />
@@ -76,6 +81,13 @@
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WriteRegisterValue.xaml.cs">
+      <DependentUpon>WriteRegisterValue.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\WriteRegisterValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -99,17 +111,21 @@
     <Compile Include="Configuration\ISettingsProvider.cs" />
     <Compile Include="Configuration\SettingsProvider.cs" />
     <Compile Include="Device\Survey\SurveyService.cs" />
-    <Compile Include="Device\Data\DeviceDataReader.cs" />
+    <Compile Include="Device\Data\DeviceIoDriver.cs" />
     <Compile Include="Device\Configuration\DevicesConfigurationProvider.cs" />
-    <Compile Include="Device\Data\IDeviceDataReader.cs" />
+    <Compile Include="Device\Data\IDeviceIoDriver.cs" />
     <Compile Include="Device\Configuration\IDevicesConfigurationProvider.cs" />
     <Compile Include="Models\DeviceDescription.cs" />
+    <Compile Include="Models\RegisterReference.cs" />
+    <Compile Include="Models\RegisterWriteRequest.cs" />
     <Compile Include="Device\Survey\ISurveyService.cs" />
     <Compile Include="Models\Seazon.cs" />
     <Compile Include="ViewModels\DeviceDetailViewModel.cs" />
     <Compile Include="ViewModels\DeviceWallViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\WriteRegisterValueViewModel.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
     <Compile Include="Views\DeviceDetail.xaml.cs">
       <DependentUpon>DeviceDetail.xaml</DependentUpon>
     </Compile>

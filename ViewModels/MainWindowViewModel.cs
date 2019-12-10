@@ -4,9 +4,9 @@
     using System.Linq;
     using System.Windows.Input;
 
-    using DispatcherDesktop.Device;
-    using DispatcherDesktop.Navigation;
-    using DispatcherDesktop.Views;
+    using Device;
+    using Navigation;
+    using Views;
 
     using Prism.Commands;
     using Prism.Mvvm;

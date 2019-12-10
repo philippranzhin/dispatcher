@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using DispatcherDesktop.Models;
+    using Models;
 
     public interface IDevicesConfigurationProvider
     {

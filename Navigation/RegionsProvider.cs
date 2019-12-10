@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using DispatcherDesktop.Views;
+    using Views;
 
     public class RegionsProvider : IRegionsProvider
     {
@@ -17,7 +17,12 @@
                                        RegionNames.Main, this.MainRegion
                                    },
                                    {
-                                       RegionNames.AddRegister, new NavigableRegion(RegionNames.AddRegister, typeof(AddRegister))
+                                       RegionNames.AddRegister,
+                                       new NavigableRegion(RegionNames.AddRegister, typeof(AddRegister))
+                                   },
+                                   {
+                                       RegionNames.WriteRegisterValue,
+                                       new NavigableRegion(RegionNames.WriteRegisterValue, typeof(WriteRegisterValue))
                                    },
                                    {
                                        RegionNames.Settings,

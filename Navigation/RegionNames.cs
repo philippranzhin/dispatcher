@@ -1,6 +1,6 @@
 ﻿namespace DispatcherDesktop.Navigation
 {
-    using DispatcherDesktop.Views;
+    using Views;
 
     public static class RegionNames
     {
@@ -13,5 +13,7 @@
         public const string Settings = "SettingsRegion";
 
         public const string AddRegister = "AddRegister";
+
+        public const string WriteRegisterValue = "WriteRegisterValue";
     }
 }

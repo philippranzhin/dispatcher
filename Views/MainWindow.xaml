@@ -93,7 +93,7 @@
             </materialDesign:ColorZone>
             <materialDesign:ColorZone DockPanel.Dock="Bottom">
                 <TextBlock Margin="5" HorizontalAlignment="Center">
-                    powered by<Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
+                    powered by&#160;<Run Foreground="{DynamicResource PrimaryHueDarkBrush}">Kabelshik-plus</Run>
                 </TextBlock>
             </materialDesign:ColorZone>
             <materialDesign:Transitioner mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.Main}" AutoApplyTransitionOrigins="True">

@@ -61,6 +61,15 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ПРИНЯТЬ.
+        /// </summary>
+        public static string AcceptButtonLbl {
+            get {
+                return ResourceManager.GetString("AcceptButtonLbl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ПРИМЕНИТЬ.
         /// </summary>
         public static string ApplyBtnText {
@@ -79,11 +88,29 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ОТМЕНИТЬ.
+        /// </summary>
+        public static string CancelButtonLbl {
+            get {
+                return ResourceManager.GetString("CancelButtonLbl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to поле не должно быть пустым.
         /// </summary>
         public static string EmptyInputErrorMsg {
             get {
                 return ResourceManager.GetString("EmptyInputErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите новое значение.
+        /// </summary>
+        public static string NewValueLblText {
+            get {
+                return ResourceManager.GetString("NewValueLblText", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace DispatcherDesktop.Properties {
         public static string SurveyStartedLabel {
             get {
                 return ResourceManager.GetString("SurveyStartedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Записать значение.
+        /// </summary>
+        public static string WriteNewRegisterValueHeader {
+            get {
+                return ResourceManager.GetString("WriteNewRegisterValueHeader", resourceCulture);
             }
         }
     }

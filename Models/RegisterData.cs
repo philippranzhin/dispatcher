@@ -2,7 +2,7 @@
 {
     using System;
 
-    using DispatcherDesktop.Device.Data;
+    using Device.Data;
 
     public class RegisterData
     {

@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -31,17 +32,15 @@
                 IsDefault="True"
                 IsEnabled="{Binding CanSave}"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                TabIndex="6">
-                ПРИНЯТЬ
-            </Button>
+                Content="{x:Static properties:Resources.AcceptButtonLbl}"
+                TabIndex="6"/>
             <Button
                 Margin="0,8,8,0"
                 Command="materialDesign:DialogHost.CloseDialogCommand"
                 IsCancel="True"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                TabIndex="7">
-                ОТМЕНИТЬ
-            </Button>
+                Content="{x:Static properties:Resources.CancelButtonLbl}"
+                TabIndex="7" />
         </DockPanel>
         <DockPanel
             Margin="5"

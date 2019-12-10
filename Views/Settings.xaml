@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
-    xmlns:validationRules="clr-namespace:DispatcherDesktop.Helpers.ValidationRules"
+    xmlns:validationRules="clr-namespace:DispatcherDesktop.Infrastructure.ValidationRules"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -44,6 +44,7 @@
                         IsChecked="{Binding SurveyEnabled}" />
                     <TextBox
                         x:Name="NameTextBox"
+                        Padding="0,15,0,0"
                         materialDesign:HintAssist.Hint="имя порта"
                         DockPanel.Dock="Top"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -59,6 +60,7 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox
+                        Padding="0,15,0,0"
                         materialDesign:HintAssist.Hint="период опроса (сек)"
                         DockPanel.Dock="Top"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">

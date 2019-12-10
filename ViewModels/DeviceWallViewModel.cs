@@ -6,10 +6,10 @@
     using System.Windows;
     using System.Windows.Input;
 
-    using DispatcherDesktop.Device;
+    using Device;
     using DispatcherDesktop.Device.Configuration;
-    using DispatcherDesktop.Device.Survey;
-    using DispatcherDesktop.Models;
+    using Device.Survey;
+    using Models;
 
     using Prism.Commands;
     using Prism.Mvvm;
@@ -37,7 +37,7 @@
             this.devicesConfiguration = devicesConfiguration;
             this.surveyStarted = this.surveyService.SurveyStarted;
 
-            this.surveyService.ServeyStartedChanged += (s, e) =>
+            this.surveyService.SurveyStartedChanged += (s, e) =>
                     {
                         this.SurveyStarted = this.surveyService.SurveyStarted;
                     };

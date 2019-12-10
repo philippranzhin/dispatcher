@@ -132,4 +132,16 @@
   <data name="SurveyStartedLabel" xml:space="preserve">
     <value>автоматический опрос</value>
   </data>
+  <data name="AcceptButtonLbl" xml:space="preserve">
+    <value>ПРИНЯТЬ</value>
+  </data>
+  <data name="CancelButtonLbl" xml:space="preserve">
+    <value>ОТМЕНИТЬ</value>
+  </data>
+  <data name="WriteNewRegisterValueHeader" xml:space="preserve">
+    <value>Записать значение</value>
+  </data>
+  <data name="NewValueLblText" xml:space="preserve">
+    <value>Введите новое значение</value>
+  </data>
 </root>

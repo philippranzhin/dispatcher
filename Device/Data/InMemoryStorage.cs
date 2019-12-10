@@ -3,36 +3,45 @@
     using System;
     using System.Collections.Generic;
 
-    using DispatcherDesktop.Models;
+    using Models;
 
     public class InMemoryStorage : IStorage
     {
-        private Dictionary<RegisterId, List<RegisterData>> data = new Dictionary<RegisterId, List<RegisterData>>();
+        private readonly object storageSync = new object();
+
+        private readonly Dictionary<RegisterId, List<RegisterData>> storedData = new Dictionary<RegisterId, List<RegisterData>>();
 
         public event EventHandler<RegisterData> Saved;
 
         public void Save(RegisterData data)
         {
-            if (this.data.Count > 10000)
+            lock (this.storageSync)
             {
-                this.data.Clear();
-            }
+                if (this.storedData.Count > 10000)
+                {
+                    this.storedData.Clear();
+                }
 
-            if (this.data.TryGetValue(data.Id, out var value))
-            {
-                value.Add(data);
+                if (this.storedData.TryGetValue(data.Id, out var value))
+                {
+                    value.Add(data);
+                }
+                else
+                {
+                    this.storedData.Add(data.Id, new List<RegisterData>() { data });
+                }
+
+                this.Saved?.Invoke(this, data);
+
             }
-            else
-            {
-                this.data.Add(data.Id, new List<RegisterData>(){ data });
-            }
-            
-            this.Saved?.Invoke(this, data);
         }
 
         public List<RegisterData> Get(RegisterId id)
         {
-            return this.data.TryGetValue(id, out var records) ? records : new List<RegisterData>();
+            lock (this.storageSync)
+            {
+                return this.storedData.TryGetValue(id, out var records) ? records : new List<RegisterData>();
+            }
         }
 
         public bool First(Func<RegisterData, bool> filter, out RegisterData data)

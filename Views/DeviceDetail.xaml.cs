@@ -1,10 +1,12 @@
-﻿namespace DispatcherDesktop.Views
+﻿using DispatcherDesktop.Device.Data;
+
+namespace DispatcherDesktop.Views
 {
     using System.Windows;
     using System.Windows.Controls;
-
-    using DispatcherDesktop.Models;
-    using DispatcherDesktop.ViewModels;
+    using Infrastructure;
+    using Models;
+    using ViewModels;
 
     using MaterialDesignThemes.Wpf;
 
@@ -20,6 +22,11 @@
         {
             this.InitializeComponent();
             RegionContext.GetObservableContext(this).PropertyChanged += this.DevicePropertyChanged;
+
+            DeviceDetailDialogHelper.CloseRequested += (s, e) =>
+            {
+                Dispatcher.Invoke(() => { this.Dialog.IsOpen = false; });
+            };
         }
 
         private void DevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -29,24 +36,64 @@
             ((DeviceDetailViewModel)this.DataContext).Device = device;
         }
 
-        private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
+        private void OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
         {
             eventargs.Handled = true;
 
-            if (eventargs.Parameter == null)
+            if (!(this.DataContext is DeviceDetailViewModel viewModel))
+            {
+                return;
+            } 
+
+            viewModel.RegisterAdding = false;
+            viewModel.RegisterValueWriting = false;
+
+            if ((eventargs.Parameter as RegisterDescription) == null)
             {
                 return;
             }
 
-            (this.DataContext as DeviceDetailViewModel)?.AddRegisterCommand?.Execute(eventargs.Parameter);
+            viewModel.AddRegisterCommand?.Execute(eventargs.Parameter);
         }
-
-        private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)
+         
+        private void OnRemoveRegister(object sender, RoutedEventArgs e)
         {
             if ((sender as Control)?.DataContext is RegisterDescription description)
             {
                 (this.DataContext as DeviceDetailViewModel)?.RemoveRegisterCommand.Execute(description);
             }
+        }
+
+        private void AddRegisterButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ((DeviceDetailViewModel)this.DataContext).RegisterAdding = true;
+        }
+
+        private void OnWriteRegisterValue(object sender, RoutedEventArgs e)
+        {
+            if (!((sender as Control)?.DataContext is RegisterDescription description))
+            {
+                return;
+            }
+
+            if (!(this.DataContext is DeviceDetailViewModel viewModel))
+            {
+                return;
+            }
+
+            viewModel.RegisterValueWriting = true;
+            viewModel.RegisterToWriteValue = new RegisterReference(viewModel.Device.Id, description);
+            DialogHost.OpenDialogCommand.Execute(null, null);
+        }
+
+        private void OnRegisterCardPopupOpen(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is DeviceDetailViewModel viewModel))
+            {
+                return;
+            }
+
+            viewModel.Pause();
         }
     }
 }

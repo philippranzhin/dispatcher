@@ -2,9 +2,9 @@
 {
     using System.Windows.Input;
 
-    using DispatcherDesktop.Configuration;
-    using DispatcherDesktop.Device;
-    using DispatcherDesktop.Device.Survey;
+    using Configuration;
+    using Device;
+    using Device.Survey;
 
     using Prism.Commands;
     using Prism.Mvvm;

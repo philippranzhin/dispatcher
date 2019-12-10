@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 
 namespace DispatcherDesktop.Views
 {
-    using DispatcherDesktop.Models;
-    using DispatcherDesktop.ViewModels;
+    using Models;
+    using ViewModels;
 
     using Prism.Common;
     using Prism.Regions;

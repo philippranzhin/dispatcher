@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DispatcherDesktop.ViewModels
+﻿namespace DispatcherDesktop.ViewModels
 {
-    using DispatcherDesktop.Models;
+    using Models;
 
     using Prism.Mvvm;
 
