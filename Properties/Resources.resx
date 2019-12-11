@@ -144,8 +144,14 @@
   <data name="NewValueLblText" xml:space="preserve">
     <value>Введите новое значение</value>
   </data>
+  <data name="ConnectionSettingsSectionHeader" xml:space="preserve">
+    <value>соединение</value>
+  </data>
   <data name="FieldIsRequredErrorMsg" xml:space="preserve">
     <value>Это поле обязательно для заполнения</value>
+  </data>
+  <data name="LogSettingsSectionHeader" xml:space="preserve">
+    <value>лог</value>
   </data>
   <data name="ReadOperationFailureByTimeoutLogMsg" xml:space="preserve">
     <value>Операция чтения была прервана, так как заняла слишком много времени</value>
@@ -155,6 +161,15 @@
   </data>
   <data name="ReadOperationSuccesLogMsg" xml:space="preserve">
     <value>Операция чтения была успешно завершена</value>
+  </data>
+  <data name="ShouldBeMoreErrorMsg" xml:space="preserve">
+    <value>Допустимы только значения, больше чем</value>
+  </data>
+  <data name="ShouldBeNumberErrorMsg" xml:space="preserve">
+    <value>Только числа допустимы для ввода</value>
+  </data>
+  <data name="SurveyPeriodSettingLblText" xml:space="preserve">
+    <value>период опроса (сек)</value>
   </data>
   <data name="WriteOperationFailureByTimeoutLogMsg" xml:space="preserve">
     <value>Операция записи была прервана, так как заняла слишком много времени</value>

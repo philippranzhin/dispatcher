@@ -25,7 +25,7 @@
                     <TextBlock
                         Padding="10"
                         Style="{DynamicResource MaterialDesignBody2TextBlock}"
-                        Text="соединение"
+                        Text="{x:Static properties:Resources.ConnectionSettingsSectionHeader}"
                         TextAlignment="Center" />
                 </materialDesign:ColorZone>
                 <Button
@@ -61,7 +61,7 @@
                     </TextBox>
                     <TextBox
                         Padding="0,15,0,0"
-                        materialDesign:HintAssist.Hint="период опроса (сек)"
+                        materialDesign:HintAssist.Hint="{x:Static properties:Resources.SurveyPeriodSettingLblText}"
                         DockPanel.Dock="Top"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         <TextBox.Text>
@@ -71,6 +71,7 @@
                                 UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                    <validationRules:MoreThanRule Value="1" ValidatesOnTargetUpdated="True" />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -88,7 +89,7 @@
                     <TextBlock
                         Padding="10"
                         Style="{DynamicResource MaterialDesignBody2TextBlock}"
-                        Text="устройства"
+                        Text="{x:Static properties:Resources.LogSettingsSectionHeader}"
                         TextAlignment="Center" />
                 </materialDesign:ColorZone>
                 <ListBox />

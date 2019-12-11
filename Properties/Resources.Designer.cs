@@ -97,6 +97,15 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to соединение.
+        /// </summary>
+        public static string ConnectionSettingsSectionHeader {
+            get {
+                return ResourceManager.GetString("ConnectionSettingsSectionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to поле не должно быть пустым.
         /// </summary>
         public static string EmptyInputErrorMsg {
@@ -111,6 +120,15 @@ namespace DispatcherDesktop.Properties {
         public static string FieldIsRequredErrorMsg {
             get {
                 return ResourceManager.GetString("FieldIsRequredErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to лог.
+        /// </summary>
+        public static string LogSettingsSectionHeader {
+            get {
+                return ResourceManager.GetString("LogSettingsSectionHeader", resourceCulture);
             }
         }
         
@@ -151,11 +169,38 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Допустимы только значения, больше чем.
+        /// </summary>
+        public static string ShouldBeMoreErrorMsg {
+            get {
+                return ResourceManager.GetString("ShouldBeMoreErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Только числа допустимы для ввода.
+        /// </summary>
+        public static string ShouldBeNumberErrorMsg {
+            get {
+                return ResourceManager.GetString("ShouldBeNumberErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to период опроса (секунды).
         /// </summary>
         public static string SurveyPeriodLblText {
             get {
                 return ResourceManager.GetString("SurveyPeriodLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to период опроса (сек).
+        /// </summary>
+        public static string SurveyPeriodSettingLblText {
+            get {
+                return ResourceManager.GetString("SurveyPeriodSettingLblText", resourceCulture);
             }
         }
         

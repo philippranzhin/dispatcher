@@ -3,6 +3,7 @@ using System.Windows.Threading;
 
 namespace DispatcherDesktop
 {
+    using System.Linq;
     using System.Windows;
 
     using Configuration;
@@ -58,12 +59,14 @@ namespace DispatcherDesktop
         private void Register(NavigableRegion region)
         {
             var regionManager = this.Container.Resolve<IRegionManager>();
+
             var mainRegion = regionManager.Regions[RegionNames.Main];
 
             if (mainRegion.Name == region.Id )
             {
                 return;
             }
+
 
             regionManager.RegisterViewWithRegion(region.Id, () =>
                 this.Container.Resolve(region.Type));

@@ -67,6 +67,7 @@
     <Compile Include="Infrastructure\DeviceDetailDialogHelper.cs" />
     <Compile Include="Infrastructure\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\Models\UiLog.cs" />
+    <Compile Include="Infrastructure\ValidationRules\MoreThanRule.cs" />
     <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisterData.cs" />
@@ -166,6 +167,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
