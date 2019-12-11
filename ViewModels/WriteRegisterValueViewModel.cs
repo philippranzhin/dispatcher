@@ -50,9 +50,9 @@ namespace DispatcherDesktop.ViewModels
         }
 
         public ICommand WriteCommand => new DelegateCommand(
-            async () =>
+            () =>
             {
-                if (this.NewValue == null)
+                if (this.NewValue == null || this.register.RegisterDescription.WriteAddress == null)
                 {
                     return;
                 }
@@ -63,18 +63,20 @@ namespace DispatcherDesktop.ViewModels
                     new RegisterId(this.register.DeviceId, this.register.RegisterDescription),
                     this.register.RegisterDescription.IntegerAddress,
                     this.register.RegisterDescription.FloatAddress,
+                    (uint)this.register.RegisterDescription.WriteAddress,
                     (double) this.NewValue);
 
                 this.surveyService.ScheduleWriteOperation(registerWriteData, this.OnFinish);
-                await Task.Delay(10000);
-                
-                this.OnFinish();
             });
 
         public bool Loading
         {
             get => this.loading;
-            set => this.SetProperty(ref this.loading, value);
+            set
+            {
+                this.loading = value;
+                this.RaisePropertyChanged();
+            }
         }
 
         public bool CanSave
@@ -91,14 +93,16 @@ namespace DispatcherDesktop.ViewModels
 
         public event EventHandler OnOperationFinish;
 
-        private void OnFinish()
+        private void OnFinish(bool success)
         {
-            if (this.Loading)
+            if (!this.Loading)
             {
-                this.OnOperationFinish?.Invoke(this, EventArgs.Empty);
-                this.Loading = false;
-                this.NewValue = null;
+                return;
             }
+
+            this.OnOperationFinish?.Invoke(this, EventArgs.Empty);
+            this.Loading = false;
+            this.NewValue = null;
         }
     }
 }

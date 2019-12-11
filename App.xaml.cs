@@ -31,7 +31,7 @@ namespace DispatcherDesktop
             containerRegistry.RegisterSingleton<IDeviceIoDriver, DeviceIoDriver>();
             containerRegistry.RegisterSingleton<IStorage, InMemoryStorage>();
             containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
-            containerRegistry.RegisterSingleton<IUiLogger, UiLogger>();
+            containerRegistry.RegisterSingleton<ILogger, Logger>();
         }
 
         protected override Window CreateShell()

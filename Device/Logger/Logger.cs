@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class UiLogger : IUiLogger
+    public class Logger : ILogger
     {
         public event EventHandler<string> InfoLogged;
         public event EventHandler<string> ErrorLogged;

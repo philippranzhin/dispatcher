@@ -14,6 +14,8 @@
 
         public uint? FloatAddress { get; set; }
 
+        public uint? WriteAddress { get; set; }
+
         public string Postfix { get; set; }
     }
 }

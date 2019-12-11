@@ -8,9 +8,6 @@
 
     using MaterialDesignThemes.Wpf;
 
-    /// <summary>
-    /// Interaction logic for DeviceWall.xaml
-    /// </summary>
     public partial class DeviceWall : UserControl
     {
         public DeviceWall()
@@ -18,9 +15,11 @@
             this.InitializeComponent();
         }
 
-        private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
+        private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs e)
         {
-            (this.DataContext as DeviceWallViewModel)?.AddDeviceCommand?.Execute(eventargs.Parameter);
+            e.Handled = true;
+
+            (this.DataContext as DeviceWallViewModel)?.AddDeviceCommand?.Execute(e.Parameter);
         }
 
         private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)

@@ -145,10 +145,25 @@
                         IsIndeterminate="True"
                         Visibility="{Binding SurveyStarted, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </DockPanel>
-                <ContentControl
-                    Margin="25,0,25,15"
-                    mvvm:RegionManager.RegionContext="{Binding SelectedItem, ElementName=ListOfDevices}"
-                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.DeviceDetail}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ContentControl
+                        Grid.Row="0"
+                        Margin="25,0,25,0"
+                        mvvm:RegionManager.RegionContext="{Binding SelectedItem, ElementName=ListOfDevices}"
+                        mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.DeviceDetail}" />
+                    <ContentControl Grid.Row="1" MinHeight="50" mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.Log}" />
+                    <GridSplitter
+                        Grid.Row="1"
+                        Height="3"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"
+                        Background="AliceBlue" />
+                </Grid>
+
             </DockPanel>
         </Grid>
     </materialDesign:DialogHost>

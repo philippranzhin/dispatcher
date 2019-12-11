@@ -7,6 +7,7 @@
     using DispatcherDesktop.Configuration;
     using Configuration;
     using Data;
+    using Logger;
     using Models;
 
     public class SurveyService : ISurveyService
@@ -17,25 +18,28 @@
 
         private readonly ISettingsProvider settingsProvider;
 
+        private readonly ILogger logger;
+
         private bool surveyStarted;
 
-        private Queue<Tuple<RegisterWriteData, Action>> writeQueue;
+        private readonly Queue<Tuple<RegisterWriteData, Action<bool>>> writeQueue;
 
-        private object writeQueueSync = new object();
+        private readonly object writeQueueSync = new object();
 
         private volatile bool surveyCompleted;
-        private volatile bool paused;
+        private volatile bool writeOperationRequested;
 
-        public SurveyService(IDeviceIoDriver ioDriver, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider)
+        public SurveyService(IDeviceIoDriver ioDriver, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider, ILogger logger)
         {
             this.ioDriver = ioDriver;
             this.configurationProvider = configurationProvider;
             this.settingsProvider = settingsProvider;
-            this.writeQueue = new Queue<Tuple<RegisterWriteData, Action>>();
+            this.logger = logger;
+            this.writeQueue = new Queue<Tuple<RegisterWriteData, Action<bool>>>();
 
             this.surveyStarted = false;
             this.surveyCompleted = true;
-            this.paused = false;
+            this.writeOperationRequested = false;
         }
 
         public bool SurveyStarted
@@ -59,18 +63,12 @@
             }
         }
 
-        public async void PauseOn(uint milliseconds)
+        public void ScheduleWriteOperation(RegisterWriteData request, Action<bool> onFinish)
         {
-            this.paused = true;
-            await Task.Delay((int) milliseconds);
-            this.paused = false;
-        }
-
-        public void ScheduleWriteOperation(RegisterWriteData request, Action onSuccess)
-        {
+            this.writeOperationRequested = true;
             lock (this.writeQueueSync)
             {
-                this.writeQueue.Enqueue(new Tuple<RegisterWriteData, Action>(request, onSuccess));
+                this.writeQueue.Enqueue(new Tuple<RegisterWriteData, Action<bool>>(request, onFinish));
             }
         }
 
@@ -78,21 +76,20 @@
 
         private async Task Read(DeviceDescription description)
         {
-            if (this.paused)
+            try
             {
-                return;
+                this.logger.LogInfo(".............................................");
+                this.logger.LogInfo($"Начало операции чтения данных для устройства {description.Name}");
+                await this.ioDriver.Read(description);
+                this.logger.LogInfo($"Операция чтения данных для устройства {description.Name} успешно завершена");
             }
-
-			try
-			{
-				await this.ioDriver.Read(description);
-			}
-            catch
-			{
-				// ignore now, will add logger
-			}
+            catch (Exception e)
+            {
+                this.logger.LogError($"Операция чтения данных для устройства {description.Name} завершена с ошибкой");
+                this.logger.LogError(e.Message);
+            }
         }
-        
+
         private void ReadAll(bool selfInvoked = false)
         {
             if (!selfInvoked && !this.surveyCompleted)
@@ -104,7 +101,7 @@
 
             lock (this.writeQueueSync)
             {
-                var localWriteQueue = new Queue<Tuple<RegisterWriteData, Action>>();
+                var localWriteQueue = new Queue<Tuple<RegisterWriteData, Action<bool>>>();
 
                 while (this.writeQueue.Count > 0)
                 {
@@ -116,21 +113,61 @@
                     while (localWriteQueue.Count > 0)
                     {
                         var currentRequest = localWriteQueue.Dequeue();
-                        var result = await this.ioDriver.Write(currentRequest.Item1);
+                        var writeTask = this.Write(currentRequest.Item1);
 
-                        if (result)
+                        var result = await Task.WhenAny(writeTask, Task.Delay(10000));
+
+                        if (result == writeTask)
                         {
-                            currentRequest.Item2.Invoke();
+                            if (result.IsCompleted && result.Exception == null)
+                            {
+                                currentRequest.Item2.Invoke(writeTask.Result);
+
+                                if (writeTask.Result)
+                                {
+                                    this.logger.LogInfo(Properties.Resources.WriteOperationSuccesLogMsg);
+                                }
+                                else
+                                {
+                                    this.logger.LogError(Properties.Resources.WriteOperationFailureLogMsg);
+                                }
+                            }
+                            else
+                            {
+                                this.logger.LogError($"{Properties.Resources.WriteOperationFailureLogMsg}:");
+                                this.logger.LogError(result.Exception?.Message);
+
+                                currentRequest.Item2.Invoke(false);
+                            }
+                        }
+                        else
+                        {
+                            currentRequest.Item2.Invoke(false);
+                            this.logger.LogError(Properties.Resources.WriteOperationFailureByTimeoutLogMsg);
                         }
                     }
 
                     foreach (var device in this.configurationProvider.Devices)
                     {
-                        await Task.WhenAny(this.Read(device), Task.Delay(80000));
+                        var delayTask = Task.Delay(10000);
+
+                        var result = await Task.WhenAny(this.Read(device), delayTask);
+
+                        if (result == delayTask)
+                        {
+                            this.logger.LogError(Properties.Resources.ReadOperationFailureByTimeoutLogMsg);
+                        }
+
+                        if (this.writeOperationRequested)
+                        {
+                            break;
+                        }
                     }
 
-                    await Task.Delay(this.settingsProvider.SurveyPeriodSeconds * 1000);
-
+                    if (!this.writeOperationRequested)
+                    {
+                        await Task.Delay(this.settingsProvider.SurveyPeriodSeconds * 1000);
+                    }
 
                     if (this.surveyStarted)
                     {
@@ -142,6 +179,16 @@
                     }
                 });
             }
+        }
+
+        private async Task<bool> Write(RegisterWriteData data)
+        {
+            this.logger.LogInfo(".............................................");
+            this.logger.LogInfo($"Начало операции записи данных для устройства {data.Id.Device}");
+            this.logger.LogInfo($"Регистр {data.Id.Register}");
+            this.logger.LogInfo($"Значение {data.Value}");
+            this.writeOperationRequested = false;
+            return await this.ioDriver.Write(data);
         }
     }
 }

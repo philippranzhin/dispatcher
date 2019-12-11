@@ -3,16 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:infrastructure="clr-namespace:DispatcherDesktop.Infrastructure"
     xmlns:local="clr-namespace:DispatcherDesktop.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:navigation="clr-namespace:DispatcherDesktop.Navigation"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    d:DesignHeight="150"
-    d:DesignWidth="200"
+    d:DesignHeight="650"
+    d:DesignWidth="600"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <infrastructure:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter" />
+    </UserControl.Resources>
     <materialDesign:DialogHost x:Name="Dialog" DialogClosing="OnDialogClosing">
         <materialDesign:DialogHost.DialogContent>
             <DockPanel>
@@ -51,7 +55,10 @@
                         <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding Device.Name, Mode=OneWay}" />
                     </TextBlock>
                 </DockPanel>
-                <ScrollViewer DockPanel.Dock="Top">
+                <ScrollViewer
+                    x:Name="RegisterContainer"
+                    DockPanel.Dock="Top"
+                    VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Registers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -61,7 +68,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <materialDesign:Card
-                                    Width="200"
+                                    x:Name="RegisterCard"
+                                    Width="230"
                                     Height="200"
                                     Margin="15"
                                     HorizontalAlignment="Stretch"
@@ -69,12 +77,32 @@
                                     <DockPanel>
                                         <materialDesign:ColorZone Padding="10" DockPanel.Dock="Top">
                                             <DockPanel>
-                                                <materialDesign:PopupBox DockPanel.Dock="Right"  Opened="OnRegisterCardPopupOpen"  PlacementMode="BottomAndAlignRightEdges">
-                                                    <ListBox>
-                                                        <ListBoxItem DataContext="{Binding Description}" Selected="OnRemoveRegister">удалить</ListBoxItem>
-                                                        <ListBoxItem DataContext="{Binding Description}" Selected="OnWriteRegisterValue">изменить значение</ListBoxItem>
-                                                    </ListBox>
-                                                </materialDesign:PopupBox>
+                                                <Button
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="3"
+                                                    Padding="5"
+                                                    VerticalAlignment="Top"
+                                                    Command="{Binding Path=DataContext.RemoveRegisterCommand, ElementName=RegisterContainer}"
+                                                    CommandParameter="{Binding Description}"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                                    ToolTip="Удалить регистр">
+                                                    <materialDesign:PackIcon Kind="DeleteSweep" />
+                                                </Button>
+                                                <Button
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="3"
+                                                    Padding="5"
+                                                    VerticalAlignment="Top"
+                                                    Click="OnWriteRegisterValue"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                    ToolTip="Записать значение"
+                                                    Visibility="{Binding CanWrite, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <materialDesign:PackIcon Kind="Pen" />
+                                                </Button>
                                                 <TextBlock
                                                     DockPanel.Dock="Left"
                                                     LineStackingStrategy="MaxHeight"
@@ -83,20 +111,31 @@
                                                     TextWrapping="WrapWithOverflow" />
                                             </DockPanel>
                                         </materialDesign:ColorZone>
-                                        <TextBlock
-                                            Padding="2"
-                                            HorizontalAlignment="Right"
-                                            DockPanel.Dock="Bottom"
-                                            Foreground="{DynamicResource PrimaryHueDarkBrush}"
-                                            LineStackingStrategy="MaxHeight"
-                                            Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                                            Text="{Binding Data.SaveDate}"
-                                            TextWrapping="WrapWithOverflow" />
+                                        <DockPanel Margin="4" DockPanel.Dock="Bottom">
+                                            <TextBlock
+                                                DockPanel.Dock="Left"
+                                                HorizontalAlignment="Left"
+                                                Foreground="{DynamicResource SecondaryAccentBrush}"
+                                                LineStackingStrategy="MaxHeight"
+                                                ToolTip="Адрес"
+                                                Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                                                Text="{Binding Description.IntegerAddress}"
+                                                TextWrapping="WrapWithOverflow" />
+                                            <TextBlock
+                                                DockPanel.Dock="Right"
+                                                HorizontalAlignment="Right"
+                                                Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                                                LineStackingStrategy="MaxHeight"
+                                                Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                                                Text="{Binding Data.SaveDate}"
+                                                TextWrapping="WrapWithOverflow" />
+                                        </DockPanel>
                                         <TextBlock
                                             Margin="5"
                                             Padding="10"
                                             DockPanel.Dock="Top"
-                                            Style="{DynamicResource MaterialDesignTitleTextBlock}">
+                                            Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                                            Visibility="{Binding HasValue, Converter={StaticResource BooleanToHiddenVisibilityConverter}}">
                                             <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding Data.Value, Mode=OneWay, StringFormat='0.000'}" /> <Run Text="{Binding Description.Postfix, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock

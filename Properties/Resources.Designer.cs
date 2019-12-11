@@ -106,11 +106,47 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Это поле обязательно для заполнения.
+        /// </summary>
+        public static string FieldIsRequredErrorMsg {
+            get {
+                return ResourceManager.GetString("FieldIsRequredErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите новое значение.
         /// </summary>
         public static string NewValueLblText {
             get {
                 return ResourceManager.GetString("NewValueLblText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция чтения была прервана, так как заняла слишком много времени.
+        /// </summary>
+        public static string ReadOperationFailureByTimeoutLogMsg {
+            get {
+                return ResourceManager.GetString("ReadOperationFailureByTimeoutLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция чтения была завершена с ошибкой.
+        /// </summary>
+        public static string ReadOperationFailureLogMsg {
+            get {
+                return ResourceManager.GetString("ReadOperationFailureLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция чтения была успешно завершена.
+        /// </summary>
+        public static string ReadOperationSuccesLogMsg {
+            get {
+                return ResourceManager.GetString("ReadOperationSuccesLogMsg", resourceCulture);
             }
         }
         
@@ -138,6 +174,33 @@ namespace DispatcherDesktop.Properties {
         public static string WriteNewRegisterValueHeader {
             get {
                 return ResourceManager.GetString("WriteNewRegisterValueHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция записи была прервана, так как заняла слишком много времени.
+        /// </summary>
+        public static string WriteOperationFailureByTimeoutLogMsg {
+            get {
+                return ResourceManager.GetString("WriteOperationFailureByTimeoutLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция записи была завершена с ошибкой.
+        /// </summary>
+        public static string WriteOperationFailureLogMsg {
+            get {
+                return ResourceManager.GetString("WriteOperationFailureLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция записи была успешно завершена.
+        /// </summary>
+        public static string WriteOperationSuccesLogMsg {
+            get {
+                return ResourceManager.GetString("WriteOperationSuccesLogMsg", resourceCulture);
             }
         }
     }

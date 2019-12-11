@@ -7,11 +7,9 @@
     {
         bool SurveyStarted { get; set; }
 
-        void ScheduleWriteOperation(RegisterWriteData request, Action onSuccess);
+        void ScheduleWriteOperation(RegisterWriteData request, Action<bool> onFinish);
 
         event EventHandler<bool> SurveyStartedChanged;
-
-        void PauseOn(uint milliseconds);
     }
 }
  

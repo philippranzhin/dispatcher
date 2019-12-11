@@ -4,12 +4,13 @@ namespace DispatcherDesktop.Models
 {
     public class RegisterWriteData
     {
-        public RegisterWriteData(RegisterId id, uint integerAddress, uint? floatAddress, double value)
+        public RegisterWriteData(RegisterId id, uint integerAddress, uint? floatAddress, uint writeAddress, double value)
         {
             this.Id = id;
             this.IntegerAddress = integerAddress;
             this.FloatAddress = floatAddress;
             this.Value = value;
+            this.WriteAddress = writeAddress;
         }
 
         public RegisterId Id { get; }
@@ -17,6 +18,8 @@ namespace DispatcherDesktop.Models
         public uint IntegerAddress { get; }
 
         public uint? FloatAddress { get; }
+
+        public uint WriteAddress { get; }
 
         public double Value { get; }
     }

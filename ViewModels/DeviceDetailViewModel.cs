@@ -5,7 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
-
+    using System.Windows.Threading;
     using Device;
     using DispatcherDesktop.Device.Configuration;
     using Device.Data;
@@ -99,6 +99,7 @@
                                          IntegerAddress = register.IntegerAddress,
                                          FloatAddress = register.FloatAddress,
                                          Postfix = register.Postfix,
+                                         WriteAddress = register.WriteAddress
                                      };
                     this.device.Registers.Add(newReg);
                     this.devicesConfiguration.Save(this.device);
@@ -123,14 +124,11 @@
                 (r) => new Register(r)
                            {
                                Data = this.storage.Get(new RegisterId(this.device.Id, r)).LastOrDefault(),
-                           }); 
-
-            this.Registers = new ObservableCollection<Register>(registerModels);
-        }
-
-        public void Pause()
-        {
-            this.surveyService.PauseOn(2000);
+                           });
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                this.Registers = new ObservableCollection<Register>(registerModels);
+            });
         }
     }
 }

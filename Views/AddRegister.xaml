@@ -7,8 +7,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -29,17 +29,17 @@
                 Margin="0,8,8,0"
                 Command="materialDesign:DialogHost.CloseDialogCommand"
                 CommandParameter="{Binding RegisterDescription}"
+                Content="{x:Static properties:Resources.AcceptButtonLbl}"
                 IsDefault="True"
                 IsEnabled="{Binding CanSave}"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                Content="{x:Static properties:Resources.AcceptButtonLbl}"
-                TabIndex="6"/>
+                TabIndex="6" />
             <Button
                 Margin="0,8,8,0"
                 Command="materialDesign:DialogHost.CloseDialogCommand"
+                Content="{x:Static properties:Resources.CancelButtonLbl}"
                 IsCancel="True"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                Content="{x:Static properties:Resources.CancelButtonLbl}"
                 TabIndex="7" />
         </DockPanel>
         <DockPanel
@@ -82,6 +82,14 @@
                 DockPanel.Dock="Top"
                 TabIndex="3"
                 Text="{Binding IntegerAddress, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                materialDesign:HintAssist.Hint="Адрес для записи значения (необязательный)"
+                materialDesign:HintAssist.IsFloating="True"
+                DockPanel.Dock="Top"
+                TabIndex="3"
+                Text="{Binding WriteAddress, UpdateSourceTrigger=PropertyChanged}" />
             <DockPanel Margin="10,10,10,0" DockPanel.Dock="Top">
                 <TextBlock DockPanel.Dock="Left" Text="С плавающей точкой" />
                 <ToggleButton

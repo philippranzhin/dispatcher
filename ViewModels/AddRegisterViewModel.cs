@@ -75,6 +75,16 @@
             }
         }
 
+        public uint? WriteAddress
+        {
+            get => this.registerDescription.WriteAddress;
+            set
+            {
+                this.registerDescription.WriteAddress = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         public string Postfix
         {
             get => this.registerDescription.Postfix;

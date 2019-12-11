@@ -2,7 +2,7 @@
 {
     using System;
 
-    public interface IUiLogger
+    public interface ILogger
     {
         event EventHandler<string> InfoLogged;
         event EventHandler<string> ErrorLogged;

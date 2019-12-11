@@ -80,14 +80,14 @@
                 {
                     await this.modbusMaster.WriteSingleRegisterAsync(
                         (byte) request.Id.Device,
-                        (ushort) request.IntegerAddress,
+                        (ushort) request.WriteAddress,
                         (ushort) request.Value);
                 }
                 else
                 {
                     await this.modbusMaster.WriteMultipleRegistersAsync(
                         (byte) request.Id.Device,
-                        (ushort) request.IntegerAddress,
+                        (ushort) request.WriteAddress,
                         this.ToUshort(request.Value));
                 }
 

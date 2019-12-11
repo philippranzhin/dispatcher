@@ -59,13 +59,14 @@
     <Compile Include="Device\Data\InMemoryStorage.cs" />
     <Compile Include="Device\Data\IStorage.cs" />
     <Compile Include="Device\Data\RegisterId.cs" />
-    <Compile Include="Device\Logger\IUiLogger.cs" />
-    <Compile Include="Device\Logger\UiLogger.cs" />
+    <Compile Include="Device\Logger\ILogger.cs" />
+    <Compile Include="Device\Logger\Logger.cs" />
     <Compile Include="Device\Driver\SerialAdapter.cs" />
     <Compile Include="Infrastructure\BooleanToHiddenVisibilityConverter.cs" />
     <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\DeviceDetailDialogHelper.cs" />
     <Compile Include="Infrastructure\InvertBoolConverter.cs" />
+    <Compile Include="Infrastructure\Models\UiLog.cs" />
     <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisterData.cs" />
@@ -78,12 +79,19 @@
     <Compile Include="Views\AddRegister.xaml.cs">
       <DependentUpon>AddRegister.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Log.xaml.cs">
+      <DependentUpon>Log.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WriteRegisterValue.xaml.cs">
       <DependentUpon>WriteRegisterValue.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Log.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WriteRegisterValue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

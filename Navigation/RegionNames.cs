@@ -15,5 +15,7 @@
         public const string AddRegister = "AddRegister";
 
         public const string WriteRegisterValue = "WriteRegisterValue";
+
+        public const string Log = "Log";
     }
 }

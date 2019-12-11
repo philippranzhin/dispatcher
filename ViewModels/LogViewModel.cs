@@ -1,24 +1,50 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows;
+    using System.Windows.Data;
     using Device.Logger;
+    using Infrastructure.Models;
     using Prism.Mvvm;
+    using Properties;
 
     public class LogViewModel : BindableBase
     {
-        private string log;
+        private readonly object logSync = new object();
+        private ObservableCollection<UiLog> logs;
 
-        public LogViewModel(IUiLogger logger)
+        public LogViewModel(ILogger logger)
         {
-            this.log = string.Empty;
+            this.logs = new ObservableCollection<UiLog>();
 
-            logger.InfoLogged += (sender, args) => { this.Log += $"\nInfo: {args}"; };
-            logger.ErrorLogged += (sender, args) => { this.Log += $"\nError: {args}"; };
+            Application.Current?.Dispatcher?.BeginInvoke(new Action(() =>
+            {
+                BindingOperations.EnableCollectionSynchronization(this.logs, this.logSync);
+            }));
+
+            logger.InfoLogged += (s, e) => this.AddLog(0, e);
+
+            logger.ErrorLogged += (s, e) => this.AddLog(1, e);
         }
 
-        public string Log
+        public ObservableCollection<UiLog> Logs
         {
-            get => this.log;
-            set => this.SetProperty(ref this.log, value);
+            get => this.logs;
+            set => this.SetProperty(ref this.logs, value);
+        }
+
+        private void AddLog(int severity, string body)
+        {
+            lock (this.logSync)
+            {
+                if (this.logs.Count >= Settings.Default.LogsMaxCount)
+                {
+                    this.logs.RemoveAt(0);
+                }
+
+                this.Logs.Add(new UiLog(severity, body));
+            }
         }
     }
-}
+} 

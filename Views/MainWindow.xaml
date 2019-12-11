@@ -105,5 +105,4 @@
             </materialDesign:Transitioner>
         </DockPanel>
     </materialDesign:DrawerHost>
-
 </Window>

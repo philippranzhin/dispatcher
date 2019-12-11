@@ -13,9 +13,6 @@ namespace DispatcherDesktop.Views
     using Prism.Common;
     using Prism.Regions;
 
-    /// <summary>
-    /// Interaction logic for DeviceDetail.xaml
-    /// </summary>
     public partial class DeviceDetail : UserControl
     {
         public DeviceDetail()
@@ -25,7 +22,18 @@ namespace DispatcherDesktop.Views
 
             DeviceDetailDialogHelper.CloseRequested += (s, e) =>
             {
-                Dispatcher.Invoke(() => { this.Dialog.IsOpen = false; });
+                this.Dispatcher?.Invoke(() =>
+                {
+                    this.Dialog.IsOpen = false;
+
+                    if (!(this.DataContext is DeviceDetailViewModel viewModel))
+                    {
+                        return;
+                    }
+
+                    viewModel.RegisterAdding = false;
+                    viewModel.RegisterValueWriting = false;
+                });
             };
         }
 
@@ -55,14 +63,6 @@ namespace DispatcherDesktop.Views
 
             viewModel.AddRegisterCommand?.Execute(eventargs.Parameter);
         }
-         
-        private void OnRemoveRegister(object sender, RoutedEventArgs e)
-        {
-            if ((sender as Control)?.DataContext is RegisterDescription description)
-            {
-                (this.DataContext as DeviceDetailViewModel)?.RemoveRegisterCommand.Execute(description);
-            }
-        }
 
         private void AddRegisterButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -71,7 +71,7 @@ namespace DispatcherDesktop.Views
 
         private void OnWriteRegisterValue(object sender, RoutedEventArgs e)
         {
-            if (!((sender as Control)?.DataContext is RegisterDescription description))
+            if (!((sender as Control)?.DataContext is Register register))
             {
                 return;
             }
@@ -82,18 +82,8 @@ namespace DispatcherDesktop.Views
             }
 
             viewModel.RegisterValueWriting = true;
-            viewModel.RegisterToWriteValue = new RegisterReference(viewModel.Device.Id, description);
+            viewModel.RegisterToWriteValue = new RegisterReference(viewModel.Device.Id, register.Description);
             DialogHost.OpenDialogCommand.Execute(null, null);
-        }
-
-        private void OnRegisterCardPopupOpen(object sender, RoutedEventArgs e)
-        {
-            if (!(this.DataContext is DeviceDetailViewModel viewModel))
-            {
-                return;
-            }
-
-            viewModel.Pause();
         }
     }
 }
