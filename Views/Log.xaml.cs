@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 
 namespace DispatcherDesktop.Views
 {
+    using ViewModels;
+
     /// <summary>
     /// Interaction logic for Log.xaml
     /// </summary>
@@ -23,6 +25,18 @@ namespace DispatcherDesktop.Views
         public Log()
         {
             this.InitializeComponent();
+            this.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is LogViewModel vm)
+            {
+                vm.Logs.CollectionChanged += (s, ea) =>
+                {
+                    this.Dispatcher.Invoke(() => this.ConsoleScroll.ScrollToEnd());
+                };
+            }
         }
     }
 }

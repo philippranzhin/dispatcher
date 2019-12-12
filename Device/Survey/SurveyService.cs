@@ -29,7 +29,11 @@
         private volatile bool surveyCompleted;
         private volatile bool writeOperationRequested;
 
-        public SurveyService(IDeviceIoDriver ioDriver, IDevicesConfigurationProvider configurationProvider, ISettingsProvider settingsProvider, ILogger logger)
+        public SurveyService(
+            IDeviceIoDriver ioDriver, 
+            IDevicesConfigurationProvider configurationProvider, 
+            ISettingsProvider settingsProvider, 
+            ILogger logger)
         {
             this.ioDriver = ioDriver;
             this.configurationProvider = configurationProvider;
@@ -78,14 +82,16 @@
         {
             try
             {
-                this.logger.LogInfo(".............................................");
-                this.logger.LogInfo($"Начало операции чтения данных для устройства {description.Name}");
+                this.logger.LogInfo(Properties.Resources.LogLineSeparator);
+                this.logger.LogInfo($"{Properties.Resources.ReadOperationStartLogMsg} {description.Name}");
+
                 await this.ioDriver.Read(description);
-                this.logger.LogInfo($"Операция чтения данных для устройства {description.Name} успешно завершена");
+
+                this.logger.LogInfo($"{Properties.Resources.ReadOperationSuccesLogMsg}");
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Операция чтения данных для устройства {description.Name} завершена с ошибкой");
+                this.logger.LogError($"{Properties.Resources.ReadOperationFailureLogMsg}:");
                 this.logger.LogError(e.Message);
             }
         }
@@ -183,11 +189,13 @@
 
         private async Task<bool> Write(RegisterWriteData data)
         {
-            this.logger.LogInfo(".............................................");
-            this.logger.LogInfo($"Начало операции записи данных для устройства {data.Id.Device}");
-            this.logger.LogInfo($"Регистр {data.Id.Register}");
-            this.logger.LogInfo($"Значение {data.Value}");
+            this.logger.LogInfo(Properties.Resources.LogLineSeparator);
+            this.logger.LogInfo($"{Properties.Resources.WriteOperationStartLogMsg} {data.Id.Device}");
+            this.logger.LogInfo($"{Properties.Resources.WriteOperationRegister}: {data.Id.Register}");
+            this.logger.LogInfo($"{Properties.Resources.WriteOperationValue}: {data.Value}");
+
             this.writeOperationRequested = false;
+
             return await this.ioDriver.Write(data);
         }
     }

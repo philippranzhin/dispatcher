@@ -10,12 +10,12 @@
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" x:Name="ConsoleScroll">
         <DockPanel>
             <ItemsControl ItemsSource="{Binding Logs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Label x:Name="Label" Content="{Binding Body}" />
+                        <TextBlock x:Name="Label" Text="{Binding Body}" />
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding Severity}" Value="0">
                                 <Setter TargetName="Label" Property="Foreground" Value="CadetBlue" />

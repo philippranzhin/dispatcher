@@ -32,7 +32,6 @@
                 }
 
                 this.Saved?.Invoke(this, data);
-
             }
         }
 

@@ -124,6 +124,15 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ..............................................
+        /// </summary>
+        public static string LogLineSeparator {
+            get {
+                return ResourceManager.GetString("LogLineSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to лог.
         /// </summary>
         public static string LogSettingsSectionHeader {
@@ -156,6 +165,15 @@ namespace DispatcherDesktop.Properties {
         public static string ReadOperationFailureLogMsg {
             get {
                 return ResourceManager.GetString("ReadOperationFailureLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Начало операции чтения данных для устройства.
+        /// </summary>
+        public static string ReadOperationStartLogMsg {
+            get {
+                return ResourceManager.GetString("ReadOperationStartLogMsg", resourceCulture);
             }
         }
         
@@ -241,11 +259,38 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Регистр.
+        /// </summary>
+        public static string WriteOperationRegister {
+            get {
+                return ResourceManager.GetString("WriteOperationRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Начало операции записи данных для устройства.
+        /// </summary>
+        public static string WriteOperationStartLogMsg {
+            get {
+                return ResourceManager.GetString("WriteOperationStartLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Операция записи была успешно завершена.
         /// </summary>
         public static string WriteOperationSuccesLogMsg {
             get {
                 return ResourceManager.GetString("WriteOperationSuccesLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Значение.
+        /// </summary>
+        public static string WriteOperationValue {
+            get {
+                return ResourceManager.GetString("WriteOperationValue", resourceCulture);
             }
         }
     }

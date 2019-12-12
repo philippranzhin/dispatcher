@@ -1,6 +1,7 @@
 ﻿namespace DispatcherDesktop.Device.Logger
 {
     using System;
+    using System.Windows.Threading;
 
     public class Logger : ILogger
     {
@@ -9,12 +10,13 @@
 
         public void LogInfo(string log)
         {
-            this.InfoLogged?.Invoke(this, log);
+            Dispatcher.CurrentDispatcher.Invoke(() => { this.InfoLogged?.Invoke(this, log); });
+
         }
 
         public void LogError(string log)
         {
-            this.ErrorLogged?.Invoke(this, log);
+            Dispatcher.CurrentDispatcher.Invoke(() => { this.ErrorLogged?.Invoke(this, log); });
         }
     }
 }

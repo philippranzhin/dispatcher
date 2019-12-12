@@ -150,6 +150,9 @@
   <data name="FieldIsRequredErrorMsg" xml:space="preserve">
     <value>Это поле обязательно для заполнения</value>
   </data>
+  <data name="LogLineSeparator" xml:space="preserve">
+    <value>.............................................</value>
+  </data>
   <data name="LogSettingsSectionHeader" xml:space="preserve">
     <value>лог</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="ReadOperationFailureLogMsg" xml:space="preserve">
     <value>Операция чтения была завершена с ошибкой</value>
+  </data>
+  <data name="ReadOperationStartLogMsg" xml:space="preserve">
+    <value>Начало операции чтения данных для устройства</value>
   </data>
   <data name="ReadOperationSuccesLogMsg" xml:space="preserve">
     <value>Операция чтения была успешно завершена</value>
@@ -177,7 +183,16 @@
   <data name="WriteOperationFailureLogMsg" xml:space="preserve">
     <value>Операция записи была завершена с ошибкой</value>
   </data>
+  <data name="WriteOperationRegister" xml:space="preserve">
+    <value>Регистр</value>
+  </data>
+  <data name="WriteOperationStartLogMsg" xml:space="preserve">
+    <value>Начало операции записи данных для устройства</value>
+  </data>
   <data name="WriteOperationSuccesLogMsg" xml:space="preserve">
     <value>Операция записи была успешно завершена</value>
+  </data>
+  <data name="WriteOperationValue" xml:space="preserve">
+    <value>Значение</value>
   </data>
 </root>
