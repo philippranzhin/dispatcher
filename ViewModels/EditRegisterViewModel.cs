@@ -8,17 +8,18 @@
     using Prism.Commands;
     using Prism.Mvvm;
 
-    public class AddRegisterViewModel : BindableBase
+    public class EditRegisterViewModel : BindableBase
     {
         private readonly IDevicesConfigurationProvider devicesConfiguration;
 
         private RegisterDescription registerDescription;
 
         private bool isFloat;
-        private EditRegisterContext context;
+        private SubViewDialogContext<RegisterReference> context;
         private EditRegisterMode mode;
+        private DeviceDescription device;
 
-        public AddRegisterViewModel(IDevicesConfigurationProvider devicesConfiguration)
+        public EditRegisterViewModel(IDevicesConfigurationProvider devicesConfiguration)
         {
             this.devicesConfiguration = devicesConfiguration;
             this.PropertyChanged += (s, e) =>
@@ -34,7 +35,7 @@
             this.registerDescription = new RegisterDescription();
         }
 
-        public EditRegisterContext Context
+        public SubViewDialogContext<RegisterReference> Context
         {
             get => this.context;
             set
@@ -144,11 +145,11 @@
             {
                 if (this.Mode == EditRegisterMode.Create)
                 {
-                    this.context.SelectedDevice.Registers.Add(this.RegisterDescription);
+                    this.device.Registers.Add(this.RegisterDescription);
                 }
                 
 
-                this.devicesConfiguration.Save(this.context.SelectedDevice);
+                this.devicesConfiguration.Save(this.device);
 
                 this.Context.Finish();
 
@@ -163,20 +164,21 @@
                 this.Context.Cancel();
             });
 
-        private void Start(object sender, RegisterDescription e)
+        private void Start(object sender, RegisterReference e)
         {
-            if (e == null)
+            this.device = e.Device;
+
+            if (e.Register == RegisterDescription.Empty)
             {
                 this.Mode = EditRegisterMode.Create;
                 this.RegisterDescription = new RegisterDescription();
-
                 this.IsFloat = false;
             }
             else
             {
                 this.Mode = EditRegisterMode.Edit;
-                this.RegisterDescription = e;
-                this.IsFloat = e.FloatAddress != null;
+                this.RegisterDescription = e.Register;
+                this.IsFloat = e.Register.FloatAddress != null;
             }
         }
     }

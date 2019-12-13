@@ -10,6 +10,7 @@ namespace DispatcherDesktop.Views
     using System;
     using System.Windows;
     using Infrastructure;
+    using Infrastructure.ViewContext;
     using MaterialDesignThemes.Wpf;
 
     public partial class WriteRegisterValue : UserControl
@@ -18,20 +19,14 @@ namespace DispatcherDesktop.Views
         {
             this.InitializeComponent();
             RegionContext.GetObservableContext(this).PropertyChanged += this.RegisterPropertyChanged;
-            ((WriteRegisterValueViewModel) this.DataContext).OnOperationFinish += this.OnFinish;
         }
 
         private void RegisterPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var context = (ObservableObject<object>)sender;
-            var register = (RegisterReference)context.Value;
+            var contextValue = (SubViewDialogContext<RegisterReference>)context.Value;
 
-            ((WriteRegisterValueViewModel)this.DataContext).Register = register;
-        }
-
-        private void OnFinish(object sender, EventArgs e)
-        {
-            DeviceDetailDialogHelper.RequestClose(sender);
+            ((WriteRegisterValueViewModel)this.DataContext).Context = contextValue;
         }
     }
 }

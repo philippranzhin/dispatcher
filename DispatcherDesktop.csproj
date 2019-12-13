@@ -65,13 +65,12 @@
     <Compile Include="Infrastructure\BooleanToHiddenVisibilityConverter.cs" />
     <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Converters\EditRegisterModeToDialogHeaderConverter.cs" />
-    <Compile Include="Infrastructure\UiHelper\DeviceDetailDialogHelper.cs" />
     <Compile Include="Infrastructure\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\Models\EditRegisterMode.cs" />
     <Compile Include="Infrastructure\Models\UiLog.cs" />
     <Compile Include="Infrastructure\ValidationRules\MoreThanRule.cs" />
     <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
-    <Compile Include="Infrastructure\ViewContext\EditRegisterContext.cs" />
+    <Compile Include="Infrastructure\ViewContext\SubViewDialogContext.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisterData.cs" />
     <Compile Include="Models\RegisterDescription.cs" />
@@ -79,9 +78,9 @@
     <Compile Include="Navigation\NavigableRegion.cs" />
     <Compile Include="Navigation\RegionNames.cs" />
     <Compile Include="Navigation\RegionsProvider.cs" />
-    <Compile Include="ViewModels\AddRegisterViewModel.cs" />
-    <Compile Include="Views\AddRegister.xaml.cs">
-      <DependentUpon>AddRegister.xaml</DependentUpon>
+    <Compile Include="ViewModels\EditRegisterViewModel.cs" />
+    <Compile Include="Views\EditRegister.xaml.cs">
+      <DependentUpon>EditRegister.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Log.xaml.cs">
       <DependentUpon>Log.xaml</DependentUpon>
@@ -100,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddRegister.xaml">
+    <Page Include="Views\EditRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

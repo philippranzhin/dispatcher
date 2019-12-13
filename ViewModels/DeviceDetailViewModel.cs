@@ -31,8 +31,9 @@
         private ObservableCollection<Register> registers;
         private bool registerEditing;
         private bool registerValueWriting;
-        private RegisterReference registerToWriteValue;
-        private EditRegisterContext editContext;
+
+        private SubViewDialogContext<RegisterReference> editContext;
+        private SubViewDialogContext<RegisterReference> writeContext;
 
         public DeviceDetailViewModel(
             IDevicesConfigurationProvider devicesConfiguration, 
@@ -64,24 +65,25 @@
 
                 this.SetProperty(ref this.device, value);
 
-                this.EditContext = new EditRegisterContext(this.Device);
+                this.EditContext = new SubViewDialogContext<RegisterReference>();
+                this.WriteContext = new SubViewDialogContext<RegisterReference>();
 
                 this.UpdateRegisterData();
             }
         }
 
-        public EditRegisterContext EditContext
+        public SubViewDialogContext<RegisterReference> EditContext
         {
             get => this.editContext;
             set => this.SetProperty(ref this.editContext, value);
         }
 
-        public RegisterReference RegisterToWriteValue
+        public SubViewDialogContext<RegisterReference> WriteContext
         {
-            get => this.registerToWriteValue;
-            set => this.SetProperty(ref this.registerToWriteValue, value);
+            get => this.writeContext;
+            set => this.SetProperty(ref this.writeContext, value);
         }
-
+         
         public ObservableCollection<Register> Registers
         {
             get => this.registers;
@@ -111,7 +113,14 @@
             (register) =>
             {
                 this.RegisterEditing = true;
-                this.EditContext.Start(register);
+                this.EditContext.Start(new RegisterReference(this.Device, register ?? RegisterDescription.Empty));
+            });
+        
+        public ICommand StartWriteCommand => new DelegateCommand<RegisterDescription>(
+            (register) =>
+            {
+                this.RegisterValueWriting = true;
+                this.WriteContext.Start(new RegisterReference(this.Device, register));
             });
 
         private void UpdateRegisterData()
@@ -127,6 +136,7 @@
                            {
                                Data = this.storage.Get(new RegisterId(this.device.Id, r)).LastOrDefault(),
                            });
+
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {
                 this.Registers = new ObservableCollection<Register>(registerModels);

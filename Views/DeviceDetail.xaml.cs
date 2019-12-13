@@ -21,22 +21,6 @@ namespace DispatcherDesktop.Views
         {
             this.InitializeComponent();
             RegionContext.GetObservableContext(this).PropertyChanged += this.DevicePropertyChanged;
-
-            DeviceDetailDialogHelper.CloseRequested += (s, e) =>
-            {
-                this.Dispatcher?.Invoke(() =>
-                {
-                    this.Dialog.IsOpen = false;
-
-                    if (!(this.DataContext is DeviceDetailViewModel viewModel))
-                    {
-                        return;
-                    }
-
-                    viewModel.RegisterEditing = false;
-                    viewModel.RegisterValueWriting = false;
-                });
-            };
         }
 
         private void DevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -50,63 +34,39 @@ namespace DispatcherDesktop.Views
 
                 viewModel.EditContext.OnCancel += this.HandleEditingFinish;
                 viewModel.EditContext.OnFinish += this.HandleEditingFinish;
+
+                viewModel.WriteContext.OnCancel += this.HandleWritingFinish;
+                viewModel.WriteContext.OnFinish += this.HandleWritingFinish;
             }
+        }
+
+        private void HandleWritingFinish(object sender, EventArgs e)
+        {
+            this.Dispatcher?.Invoke(() => {
+                if (!(this.DataContext is DeviceDetailViewModel viewModel))
+                {
+                    return;
+                }
+
+                this.Dialog.IsOpen = false; 
+                viewModel.RegisterValueWriting = false;
+            });
         }
 
         private void HandleEditingFinish(object sender, EventArgs e)
         {
-            if (!(this.DataContext is DeviceDetailViewModel viewModel))
-            {
-                return;
-            }
+            this.Dispatcher?.Invoke(() => {
+                if (!(this.DataContext is DeviceDetailViewModel viewModel))
+                {
+                    return;
+                }
 
-            this.Dialog.IsOpen = false;
-
-            viewModel.RegisterEditing = false;
+                this.Dialog.IsOpen = false;
+                viewModel.RegisterEditing = false;
+            });
         }
 
-        private void OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
-        {
-            eventargs.Handled = true;
-
-            if (!(this.DataContext is DeviceDetailViewModel viewModel))
-            {
-                return;
-            } 
-
-            viewModel.RegisterValueWriting = false;
-        }
-
-        private void OnStartCreateRegister(object sender, RoutedEventArgs e)
-        {
-            if (!(this.DataContext is DeviceDetailViewModel viewModel))
-            {
-                return;
-            }
-
-            viewModel.RegisterEditing = true;
-
-            viewModel.EditContext?.Start();
-        }
-
-        private void OnWriteRegisterValue(object sender, RoutedEventArgs e)
-        {
-            if (!((sender as Control)?.DataContext is Register register))
-            {
-                return;
-            }
-
-            if (!(this.DataContext is DeviceDetailViewModel viewModel))
-            {
-                return;
-            }
-
-            viewModel.RegisterValueWriting = true;
-            viewModel.RegisterToWriteValue = new RegisterReference(viewModel.Device.Id, register.Description);
-            DialogHost.OpenDialogCommand.Execute(null, null);
-        }
-
-        private void OnStartEditRegister(object sender, RoutedEventArgs e)
+        private void OpenDialog(object sender, RoutedEventArgs e)
         {
             this.Dialog.IsOpen = true;
         }

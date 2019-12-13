@@ -12,7 +12,7 @@
 
         public const string Settings = "SettingsRegion";
 
-        public const string AddRegister = "AddRegister";
+        public const string EditRegister = "EditRegister";
 
         public const string WriteRegisterValue = "WriteRegisterValue";
 

@@ -9,6 +9,7 @@ namespace DispatcherDesktop.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using Device.Survey;
+    using Infrastructure.ViewContext;
     using Prism.Commands;
     using Prism.Mvvm;
 
@@ -17,11 +18,13 @@ namespace DispatcherDesktop.ViewModels
         private readonly IStorage storage;
         private readonly ISurveyService surveyService;
 
-        private RegisterReference register;
+        private SubViewDialogContext<RegisterReference> context;
         private double? newValue;
         private double? oldValue;
         private volatile bool loading;
         private bool canSave;
+        private RegisterDescription register;
+        private DeviceDescription device;
 
         public WriteRegisterValueViewModel(IStorage storage, ISurveyService surveyService)
         {
@@ -29,14 +32,29 @@ namespace DispatcherDesktop.ViewModels
             this.surveyService = surveyService;
         }
 
-        public RegisterReference Register
+        public SubViewDialogContext<RegisterReference> Context
         {
-            get => this.register;
+            get => this.context;
             set
             {
-                this.SetProperty(ref this.register, value);
-                this.OldValue = this.storage.Get(new RegisterId(value.DeviceId, value.RegisterDescription)).LastOrDefault()?.Value;
+                this.SetProperty(ref this.context, value);
+                this.context.OnStart += this.HandleStart;
+
+               
             } 
+        }
+
+        private void HandleStart(object sender, RegisterReference e)
+        {
+            this.OldValue = this.storage.Get(new RegisterId(e.Device.Id, e.Register)).LastOrDefault()?.Value;
+            this.Register = e.Register;
+            this.device = e.Device;
+        }
+
+        public RegisterDescription Register
+        {
+            get => this.register;
+            set => this.SetProperty(ref this.register, value);
         }
 
         public double? NewValue
@@ -52,7 +70,7 @@ namespace DispatcherDesktop.ViewModels
         public ICommand WriteCommand => new DelegateCommand(
             () =>
             {
-                if (this.NewValue == null || this.register.RegisterDescription.WriteAddress == null)
+                if (this.NewValue == null || this.Register.WriteAddress == null)
                 {
                     return;
                 }
@@ -60,13 +78,22 @@ namespace DispatcherDesktop.ViewModels
                 this.Loading = true;
 
                 var registerWriteData = new RegisterWriteData(
-                    new RegisterId(this.register.DeviceId, this.register.RegisterDescription),
-                    this.register.RegisterDescription.IntegerAddress,
-                    this.register.RegisterDescription.FloatAddress,
-                    (uint)this.register.RegisterDescription.WriteAddress,
+                    new RegisterId(this.device.Id, this.Register),
+                    this.Register.IntegerAddress,
+                    this.Register.FloatAddress,
+                    (uint)this.Register.WriteAddress,
                     (double) this.NewValue);
 
                 this.surveyService.ScheduleWriteOperation(registerWriteData, this.OnFinish);
+            });
+
+        public ICommand CancelCommand => new DelegateCommand(
+            () =>
+            {
+                this.Loading = false;
+                this.NewValue = null;
+
+                this.context.Cancel();
             });
 
         public bool Loading
@@ -91,8 +118,6 @@ namespace DispatcherDesktop.ViewModels
             set => this.SetProperty(ref this.oldValue, value);
         }
 
-        public event EventHandler OnOperationFinish;
-
         private void OnFinish(bool success)
         {
             if (!this.Loading)
@@ -100,9 +125,9 @@ namespace DispatcherDesktop.ViewModels
                 return;
             }
 
-            this.OnOperationFinish?.Invoke(this, EventArgs.Empty);
             this.Loading = false;
             this.NewValue = null;
+            this.context.Finish();
         }
     }
 }

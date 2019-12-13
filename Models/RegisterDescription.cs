@@ -17,5 +17,7 @@
         public uint? WriteAddress { get; set; }
 
         public string Postfix { get; set; }
+
+        public static RegisterDescription Empty = new RegisterDescription();
     }
 }

@@ -57,7 +57,7 @@
                 TabIndex="6" />
             <Button
                 Margin="0,8,8,0"
-                Command="materialDesign:DialogHost.CloseDialogCommand"
+                Command="{Binding CancelCommand}"
                 Content="{x:Static properties:Resources.CancelButtonLbl}"
                 IsCancel="True"
                 Style="{StaticResource MaterialDesignFlatButton}"

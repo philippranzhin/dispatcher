@@ -23,11 +23,11 @@ namespace DispatcherDesktop.Views
     using Prism.Regions;
 
     /// <summary>
-    /// Interaction logic for AddRegister.xaml
+    /// Interaction logic for EditRegister.xaml
     /// </summary>
-    public partial class AddRegister : UserControl
+    public partial class EditRegister : UserControl
     {
-        public AddRegister()
+        public EditRegister()
         { 
             this.InitializeComponent();
             RegionContext.GetObservableContext(this).PropertyChanged += this.DevicePropertyChanged;
@@ -36,8 +36,8 @@ namespace DispatcherDesktop.Views
         private void DevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var context = (ObservableObject<object>)sender;
-            var contextValue = (EditRegisterContext)context.Value;
-            ((AddRegisterViewModel)this.DataContext).Context = contextValue;
+            var contextValue = (SubViewDialogContext<RegisterReference>)context.Value;
+            ((EditRegisterViewModel)this.DataContext).Context = contextValue;
         }
 
     }

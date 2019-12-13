@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:navigation="clr-namespace:DispatcherDesktop.Navigation"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="650"
     d:DesignWidth="600"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -18,15 +18,15 @@
     <UserControl.Resources>
         <infrastructure:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter" />
     </UserControl.Resources>
-    <materialDesign:DialogHost x:Name="Dialog" DialogClosing="OnDialogClosing">
+    <materialDesign:DialogHost x:Name="Dialog">
         <materialDesign:DialogHost.DialogContent>
             <DockPanel>
                 <ContentControl
                     mvvm:RegionManager.RegionContext="{Binding EditContext}"
-                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.AddRegister}"
+                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.EditRegister}"
                     Visibility="{Binding RegisterEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <ContentControl
-                    mvvm:RegionManager.RegionContext="{Binding RegisterToWriteValue}"
+                    mvvm:RegionManager.RegionContext="{Binding WriteContext}"
                     mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.WriteRegisterValue}"
                     Visibility="{Binding RegisterValueWriting, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </DockPanel>
@@ -37,8 +37,8 @@
                     <Button
                         Margin="15"
                         HorizontalAlignment="Right"
-                        Click="OnStartCreateRegister"
-                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Click="OpenDialog"
+                        Command="{Binding StartEditRegisterCommand}"
                         DockPanel.Dock="Right"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         ToolTip="Добавить регистр">
@@ -97,7 +97,9 @@
                                                     Margin="3"
                                                     Padding="5"
                                                     VerticalAlignment="Top"
-                                                    Click="OnWriteRegisterValue"
+                                                    Click="OpenDialog"
+                                                    Command="{Binding Path=DataContext.StartWriteCommand, ElementName=RegisterContainer}"
+                                                    CommandParameter="{Binding Description}"
                                                     DockPanel.Dock="Right"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                     ToolTip="Записать значение"
@@ -109,14 +111,13 @@
                                                     Height="24"
                                                     Margin="3"
                                                     Padding="5"
-                                                    Click="OnStartEditRegister"
+                                                    VerticalAlignment="Top"
+                                                    Click="OpenDialog"
                                                     Command="{Binding Path=DataContext.StartEditRegisterCommand, ElementName=RegisterContainer}"
                                                     CommandParameter="{Binding Description}"
-                                                    VerticalAlignment="Top"
                                                     DockPanel.Dock="Right"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                                    ToolTip="{x:Static properties:Resources.EditRegisterToolTip}"
-                                                    Visibility="{Binding CanWrite, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    ToolTip="{x:Static properties:Resources.EditRegisterToolTip}">
                                                     <materialDesign:PackIcon Kind="Edit" />
                                                 </Button>
                                                 <TextBlock

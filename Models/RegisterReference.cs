@@ -2,14 +2,14 @@
 {
     public class RegisterReference
     {
-        public RegisterReference(uint deviceId, RegisterDescription registerDescription)
+        public RegisterReference(DeviceDescription device, RegisterDescription register)
         {
-            this.RegisterDescription = registerDescription;
-            this.DeviceId = deviceId;
+            this.Register = register;
+            this.Device = device;
         }
 
-        public uint DeviceId { get; }
+        public DeviceDescription Device { get; }
 
-        public RegisterDescription RegisterDescription { get; }
+        public RegisterDescription Register { get; }
     }
 }
