@@ -10,6 +10,7 @@
     using DispatcherDesktop.Device.Configuration;
     using Device.Data;
     using Device.Survey;
+    using Infrastructure.ViewContext;
     using Models;
 
     using Prism.Commands;
@@ -28,9 +29,10 @@
         private DeviceDescription device;
 
         private ObservableCollection<Register> registers;
-        private bool registerAdding;
+        private bool registerEditing;
         private bool registerValueWriting;
         private RegisterReference registerToWriteValue;
+        private EditRegisterContext editContext;
 
         public DeviceDetailViewModel(
             IDevicesConfigurationProvider devicesConfiguration, 
@@ -61,8 +63,17 @@
                 }
 
                 this.SetProperty(ref this.device, value);
+
+                this.EditContext = new EditRegisterContext(this.Device);
+
                 this.UpdateRegisterData();
             }
+        }
+
+        public EditRegisterContext EditContext
+        {
+            get => this.editContext;
+            set => this.SetProperty(ref this.editContext, value);
         }
 
         public RegisterReference RegisterToWriteValue
@@ -77,10 +88,10 @@
             set => this.SetProperty(ref this.registers, value);
         }
 
-        public bool RegisterAdding
+        public bool RegisterEditing
         {
-            get => this.registerAdding;
-            set => this.SetProperty(ref this.registerAdding, value);
+            get => this.registerEditing;
+            set => this.SetProperty(ref this.registerEditing, value);
         }
 
         public bool RegisterValueWriting
@@ -89,28 +100,19 @@
             set => this.SetProperty(ref this.registerValueWriting, value);
         }
 
-        public ICommand AddRegisterCommand => new DelegateCommand<RegisterDescription>(
-            (register) =>
-                {
-                    var newReg = new RegisterDescription()
-                                     {
-                                         Description = register.Description,
-                                         Name = register.Name,
-                                         IntegerAddress = register.IntegerAddress,
-                                         FloatAddress = register.FloatAddress,
-                                         Postfix = register.Postfix,
-                                         WriteAddress = register.WriteAddress
-                                     };
-                    this.device.Registers.Add(newReg);
-                    this.devicesConfiguration.Save(this.device);
-                });
-
         public ICommand RemoveRegisterCommand => new DelegateCommand<RegisterDescription>(
             (register) =>
                 {
                     this.device.Registers.Remove(register);
                     this.devicesConfiguration.Save(this.device);
                 });
+
+        public ICommand StartEditRegisterCommand => new DelegateCommand<RegisterDescription>(
+            (register) =>
+            {
+                this.RegisterEditing = true;
+                this.EditContext.Start(register);
+            });
 
         private void UpdateRegisterData()
         {

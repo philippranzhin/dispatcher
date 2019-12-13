@@ -25,6 +25,10 @@
                                        new NavigableRegion(RegionNames.Log, typeof(Log))
                                    },
                                    {
+                                       RegionNames.SettingsLog,
+                                       new NavigableRegion(RegionNames.SettingsLog, typeof(Log))
+                                   },
+                                   {
                                        RegionNames.WriteRegisterValue,
                                        new NavigableRegion(RegionNames.WriteRegisterValue, typeof(WriteRegisterValue))
                                    },

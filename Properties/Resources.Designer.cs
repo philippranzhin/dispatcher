@@ -70,6 +70,15 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавление регистра.
+        /// </summary>
+        public static string AddRegisterDialogHeader {
+            get {
+                return ResourceManager.GetString("AddRegisterDialogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ПРИМЕНИТЬ.
         /// </summary>
         public static string ApplyBtnText {
@@ -102,6 +111,33 @@ namespace DispatcherDesktop.Properties {
         public static string ConnectionSettingsSectionHeader {
             get {
                 return ResourceManager.GetString("ConnectionSettingsSectionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Информация об устройстве.
+        /// </summary>
+        public static string DeviceInfoPageHeader {
+            get {
+                return ResourceManager.GetString("DeviceInfoPageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактирование регистра.
+        /// </summary>
+        public static string EditRegisterDialogHeader {
+            get {
+                return ResourceManager.GetString("EditRegisterDialogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактировать.
+        /// </summary>
+        public static string EditRegisterToolTip {
+            get {
+                return ResourceManager.GetString("EditRegisterToolTip", resourceCulture);
             }
         }
         

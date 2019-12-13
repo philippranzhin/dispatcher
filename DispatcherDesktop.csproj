@@ -64,11 +64,14 @@
     <Compile Include="Device\Driver\SerialAdapter.cs" />
     <Compile Include="Infrastructure\BooleanToHiddenVisibilityConverter.cs" />
     <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Infrastructure\DeviceDetailDialogHelper.cs" />
+    <Compile Include="Infrastructure\Converters\EditRegisterModeToDialogHeaderConverter.cs" />
+    <Compile Include="Infrastructure\UiHelper\DeviceDetailDialogHelper.cs" />
     <Compile Include="Infrastructure\InvertBoolConverter.cs" />
+    <Compile Include="Infrastructure\Models\EditRegisterMode.cs" />
     <Compile Include="Infrastructure\Models\UiLog.cs" />
     <Compile Include="Infrastructure\ValidationRules\MoreThanRule.cs" />
     <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
+    <Compile Include="Infrastructure\ViewContext\EditRegisterContext.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisterData.cs" />
     <Compile Include="Models\RegisterDescription.cs" />

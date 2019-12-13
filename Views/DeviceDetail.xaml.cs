@@ -2,9 +2,11 @@
 
 namespace DispatcherDesktop.Views
 {
+    using System;
     using System.Windows;
     using System.Windows.Controls;
     using Infrastructure;
+    using Infrastructure.ViewContext;
     using Models;
     using ViewModels;
 
@@ -31,7 +33,7 @@ namespace DispatcherDesktop.Views
                         return;
                     }
 
-                    viewModel.RegisterAdding = false;
+                    viewModel.RegisterEditing = false;
                     viewModel.RegisterValueWriting = false;
                 });
             };
@@ -41,7 +43,26 @@ namespace DispatcherDesktop.Views
         {
             var context = (ObservableObject<object>)sender;
             var device = (DeviceDescription)context.Value;
-            ((DeviceDetailViewModel)this.DataContext).Device = device;
+
+            if (this.DataContext is DeviceDetailViewModel viewModel)
+            {
+                viewModel.Device = device;
+
+                viewModel.EditContext.OnCancel += this.HandleEditingFinish;
+                viewModel.EditContext.OnFinish += this.HandleEditingFinish;
+            }
+        }
+
+        private void HandleEditingFinish(object sender, EventArgs e)
+        {
+            if (!(this.DataContext is DeviceDetailViewModel viewModel))
+            {
+                return;
+            }
+
+            this.Dialog.IsOpen = false;
+
+            viewModel.RegisterEditing = false;
         }
 
         private void OnDialogClosing(object sender, DialogClosingEventArgs eventargs)
@@ -53,20 +74,19 @@ namespace DispatcherDesktop.Views
                 return;
             } 
 
-            viewModel.RegisterAdding = false;
             viewModel.RegisterValueWriting = false;
+        }
 
-            if ((eventargs.Parameter as RegisterDescription) == null)
+        private void OnStartCreateRegister(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is DeviceDetailViewModel viewModel))
             {
                 return;
             }
 
-            viewModel.AddRegisterCommand?.Execute(eventargs.Parameter);
-        }
+            viewModel.RegisterEditing = true;
 
-        private void AddRegisterButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ((DeviceDetailViewModel)this.DataContext).RegisterAdding = true;
+            viewModel.EditContext?.Start();
         }
 
         private void OnWriteRegisterValue(object sender, RoutedEventArgs e)
@@ -84,6 +104,11 @@ namespace DispatcherDesktop.Views
             viewModel.RegisterValueWriting = true;
             viewModel.RegisterToWriteValue = new RegisterReference(viewModel.Device.Id, register.Description);
             DialogHost.OpenDialogCommand.Execute(null, null);
+        }
+
+        private void OnStartEditRegister(object sender, RoutedEventArgs e)
+        {
+            this.Dialog.IsOpen = true;
         }
     }
 }

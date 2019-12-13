@@ -17,5 +17,7 @@
         public const string WriteRegisterValue = "WriteRegisterValue";
 
         public const string Log = "Log";
+
+        public const string SettingsLog = "SettingsLog";
     }
 }

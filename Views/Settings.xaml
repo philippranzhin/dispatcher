@@ -7,6 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="http://prismlibrary.com/"
+    xmlns:navigation="clr-namespace:DispatcherDesktop.Navigation"
     xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
     xmlns:validationRules="clr-namespace:DispatcherDesktop.Infrastructure.ValidationRules"
     d:DesignHeight="450"
@@ -71,7 +72,7 @@
                                 UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
-                                    <validationRules:MoreThanRule Value="1" ValidatesOnTargetUpdated="True" />
+                                    <validationRules:MoreThanRule ValidatesOnTargetUpdated="True" Value="1" />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -92,7 +93,10 @@
                         Text="{x:Static properties:Resources.LogSettingsSectionHeader}"
                         TextAlignment="Center" />
                 </materialDesign:ColorZone>
-                <ListBox />
+                <ContentControl
+                    Grid.Row="1"
+                    MinHeight="50"
+                    mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.SettingsLog}" />
             </DockPanel>
             <GridSplitter
                 Grid.Column="1"

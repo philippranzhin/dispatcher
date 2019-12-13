@@ -10,6 +10,7 @@
     xmlns:mvvm="http://prismlibrary.com/"
     xmlns:navigation="clr-namespace:DispatcherDesktop.Navigation"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:properties="clr-namespace:DispatcherDesktop.Properties"
     d:DesignHeight="650"
     d:DesignWidth="600"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -21,9 +22,9 @@
         <materialDesign:DialogHost.DialogContent>
             <DockPanel>
                 <ContentControl
-                    mvvm:RegionManager.RegionContext="{Binding Device}"
+                    mvvm:RegionManager.RegionContext="{Binding EditContext}"
                     mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.AddRegister}"
-                    Visibility="{Binding RegisterAdding, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding RegisterEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <ContentControl
                     mvvm:RegionManager.RegionContext="{Binding RegisterToWriteValue}"
                     mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.WriteRegisterValue}"
@@ -36,7 +37,7 @@
                     <Button
                         Margin="15"
                         HorizontalAlignment="Right"
-                        Click="AddRegisterButton_OnClick"
+                        Click="OnStartCreateRegister"
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                         DockPanel.Dock="Right"
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -51,7 +52,7 @@
                         VerticalAlignment="Center"
                         DockPanel.Dock="Left"
                         Style="{DynamicResource MaterialDesignTitleTextBlock}">
-                        <Run>Информация об устройстве</Run>
+                        <Run Text="{x:Static properties:Resources.DeviceInfoPageHeader}" />
                         <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding Device.Name, Mode=OneWay}" />
                     </TextBlock>
                 </DockPanel>
@@ -101,7 +102,22 @@
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                     ToolTip="Записать значение"
                                                     Visibility="{Binding CanWrite, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                    <materialDesign:PackIcon Kind="Pen" />
+                                                    <materialDesign:PackIcon Kind="DatabaseEdit" />
+                                                </Button>
+                                                <Button
+                                                    Width="24"
+                                                    Height="24"
+                                                    Margin="3"
+                                                    Padding="5"
+                                                    Click="OnStartEditRegister"
+                                                    Command="{Binding Path=DataContext.StartEditRegisterCommand, ElementName=RegisterContainer}"
+                                                    CommandParameter="{Binding Description}"
+                                                    VerticalAlignment="Top"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                    ToolTip="{x:Static properties:Resources.EditRegisterToolTip}"
+                                                    Visibility="{Binding CanWrite, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <materialDesign:PackIcon Kind="Edit" />
                                                 </Button>
                                                 <TextBlock
                                                     DockPanel.Dock="Left"
@@ -113,17 +129,17 @@
                                         </materialDesign:ColorZone>
                                         <DockPanel Margin="4" DockPanel.Dock="Bottom">
                                             <TextBlock
-                                                DockPanel.Dock="Left"
                                                 HorizontalAlignment="Left"
+                                                DockPanel.Dock="Left"
                                                 Foreground="{DynamicResource SecondaryAccentBrush}"
                                                 LineStackingStrategy="MaxHeight"
-                                                ToolTip="Адрес"
                                                 Style="{DynamicResource MaterialDesignBody1TextBlock}"
                                                 Text="{Binding Description.IntegerAddress}"
-                                                TextWrapping="WrapWithOverflow" />
+                                                TextWrapping="WrapWithOverflow"
+                                                ToolTip="Адрес" />
                                             <TextBlock
-                                                DockPanel.Dock="Right"
                                                 HorizontalAlignment="Right"
+                                                DockPanel.Dock="Right"
                                                 Foreground="{DynamicResource PrimaryHueDarkBrush}"
                                                 LineStackingStrategy="MaxHeight"
                                                 Style="{DynamicResource MaterialDesignBody1TextBlock}"

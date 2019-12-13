@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace DispatcherDesktop.Views
 {
+    using Infrastructure.ViewContext;
     using Models;
     using ViewModels;
 
@@ -27,7 +28,7 @@ namespace DispatcherDesktop.Views
     public partial class AddRegister : UserControl
     {
         public AddRegister()
-        {
+        { 
             this.InitializeComponent();
             RegionContext.GetObservableContext(this).PropertyChanged += this.DevicePropertyChanged;
         }
@@ -35,8 +36,9 @@ namespace DispatcherDesktop.Views
         private void DevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var context = (ObservableObject<object>)sender;
-            var device = (DeviceDescription)context.Value;
-            ((AddRegisterViewModel)this.DataContext).Device = device;
+            var contextValue = (EditRegisterContext)context.Value;
+            ((AddRegisterViewModel)this.DataContext).Context = contextValue;
         }
+
     }
 }

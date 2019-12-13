@@ -10,7 +10,10 @@
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" MinHeight="200" x:Name="ConsoleScroll">
+    <ScrollViewer
+        x:Name="ConsoleScroll"
+        MinHeight="200"
+        VerticalScrollBarVisibility="Auto">
         <DockPanel>
             <ItemsControl ItemsSource="{Binding Logs}">
                 <ItemsControl.ItemTemplate>

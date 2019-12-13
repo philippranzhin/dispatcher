@@ -195,4 +195,16 @@
   <data name="WriteOperationValue" xml:space="preserve">
     <value>Значение</value>
   </data>
+  <data name="AddRegisterDialogHeader" xml:space="preserve">
+    <value>Добавление регистра</value>
+  </data>
+  <data name="DeviceInfoPageHeader" xml:space="preserve">
+    <value>Информация об устройстве</value>
+  </data>
+  <data name="EditRegisterDialogHeader" xml:space="preserve">
+    <value>Редактирование регистра</value>
+  </data>
+  <data name="EditRegisterToolTip" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
 </root>
