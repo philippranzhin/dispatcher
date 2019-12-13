@@ -86,24 +86,7 @@
                 BorderBrush="{DynamicResource PrimaryHueDarkBrush}"
                 BorderThickness="0,0,0,0">
                 <DockPanel Background="{DynamicResource MaterialDesignDivider}">
-                    <materialDesign:ColorZone
-                        Padding="10"
-                        DockPanel.Dock="Top"
-                        Mode="PrimaryDark">
-                        устройства
-                    </materialDesign:ColorZone>
-                    <Button
-                        Margin="15"
-                        HorizontalAlignment="Right"
-                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                        DockPanel.Dock="Bottom"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                        ToolTip="Добавить устройство">
-                        <materialDesign:PackIcon
-                            Width="24"
-                            Height="24"
-                            Kind="Add" />
-                    </Button>
+                    <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" DockPanel.Dock="Top">Добавить устройство</Button>
                     <ListBox
                         x:Name="ListOfDevices"
                         HorizontalContentAlignment="Stretch"
@@ -152,7 +135,6 @@
                     </Grid.RowDefinitions>
                     <ContentControl
                         Grid.Row="0"
-                        Margin="25,0,25,0"
                         mvvm:RegionManager.RegionContext="{Binding SelectedItem, ElementName=ListOfDevices}"
                         mvvm:RegionManager.RegionName="{x:Static navigation:RegionNames.DeviceDetail}" />
                     <ContentControl

@@ -4,9 +4,6 @@ using DispatcherDesktop.Models;
 
 namespace DispatcherDesktop.ViewModels
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
     using Device.Survey;
     using Infrastructure.ViewContext;
@@ -39,8 +36,6 @@ namespace DispatcherDesktop.ViewModels
             {
                 this.SetProperty(ref this.context, value);
                 this.context.OnStart += this.HandleStart;
-
-               
             } 
         }
 

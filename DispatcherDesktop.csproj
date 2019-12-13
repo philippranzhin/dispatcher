@@ -62,10 +62,10 @@
     <Compile Include="Device\Logger\ILogger.cs" />
     <Compile Include="Device\Logger\Logger.cs" />
     <Compile Include="Device\Driver\SerialAdapter.cs" />
-    <Compile Include="Infrastructure\BooleanToHiddenVisibilityConverter.cs" />
-    <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Infrastructure\Converters\BooleanToHiddenVisibilityConverter.cs" />
+    <Compile Include="Infrastructure\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Converters\EditRegisterModeToDialogHeaderConverter.cs" />
-    <Compile Include="Infrastructure\InvertBoolConverter.cs" />
+    <Compile Include="Infrastructure\Converters\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\Models\EditRegisterMode.cs" />
     <Compile Include="Infrastructure\Models\UiLog.cs" />
     <Compile Include="Infrastructure\ValidationRules\MoreThanRule.cs" />
@@ -119,8 +119,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\ISettingsProvider.cs" />
-    <Compile Include="Configuration\SettingsProvider.cs" />
+    <Compile Include="Device\Survey\ISurveySettingsProvider.cs" />
+    <Compile Include="Device\Survey\SurveySettingsProvider.cs" />
     <Compile Include="Device\Survey\SurveyService.cs" />
     <Compile Include="Device\Data\DeviceIoDriver.cs" />
     <Compile Include="Device\Configuration\DevicesConfigurationProvider.cs" />

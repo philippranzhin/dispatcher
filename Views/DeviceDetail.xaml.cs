@@ -1,17 +1,10 @@
-﻿using DispatcherDesktop.Device.Data;
-
-namespace DispatcherDesktop.Views
+﻿namespace DispatcherDesktop.Views
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using Infrastructure;
-    using Infrastructure.ViewContext;
     using Models;
     using ViewModels;
-
-    using MaterialDesignThemes.Wpf;
-
     using Prism.Common;
     using Prism.Regions;
 

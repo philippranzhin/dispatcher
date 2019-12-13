@@ -1,7 +1,6 @@
 ﻿namespace DispatcherDesktop.Infrastructure.ViewContext
 {
     using System;
-    using DispatcherDesktop.Models;
 
     public class SubViewDialogContext<TPayload>
     {

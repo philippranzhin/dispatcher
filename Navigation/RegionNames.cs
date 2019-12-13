@@ -1,7 +1,5 @@
 ﻿namespace DispatcherDesktop.Navigation
 {
-    using Views;
-
     public static class RegionNames
     {
         public const string Main = "MainRegion";

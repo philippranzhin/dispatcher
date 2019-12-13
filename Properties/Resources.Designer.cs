@@ -88,7 +88,7 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Приложение диспечтчеризации тепловых узлов академии МЧС.
+        ///   Looks up a localized string similar to Приложение диспетчеризации тепловых узлов академии МЧС.
         /// </summary>
         public static string AppName {
             get {

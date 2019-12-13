@@ -1,9 +1,6 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
     using System.Windows.Input;
-
-    using Configuration;
-    using Device;
     using Device.Survey;
 
     using Prism.Commands;
@@ -14,22 +11,22 @@
 
         private readonly ISurveyService surveyService;
 
-        private readonly ISettingsProvider settingsProvider;
+        private readonly ISurveySettingsProvider surveySettingsProvider;
 
         private string portName;
 
         private int surveyPeriod;
 
-        public SettingsViewModel(ISurveyService surveyService, ISettingsProvider settingsProvider)
+        public SettingsViewModel(ISurveyService surveyService, ISurveySettingsProvider surveySettingsProvider)
         {
             this.surveyService = surveyService;
-            this.settingsProvider = settingsProvider;
+            this.surveySettingsProvider = surveySettingsProvider;
 
-			surveyService.SurveyStarted = settingsProvider.SurveyEnabled;
-			this.surveyEnabled = settingsProvider.SurveyEnabled;
+			surveyService.SurveyStarted = surveySettingsProvider.SurveyEnabled;
+			this.surveyEnabled = surveySettingsProvider.SurveyEnabled;
 
-            this.surveyPeriod = settingsProvider.SurveyPeriodSeconds;
-            this.portName = settingsProvider.ConnectionString; 
+            this.surveyPeriod = surveySettingsProvider.SurveyPeriodSeconds;
+            this.portName = surveySettingsProvider.ConnectionString; 
         }
 
         public bool SurveyEnabled
@@ -56,9 +53,9 @@
         {
 			this.surveyService.SurveyStarted = this.SurveyEnabled;
 
-			this.settingsProvider.SurveyEnabled = this.SurveyEnabled;
-			this.settingsProvider.SurveyPeriodSeconds = this.SurveyPeriod;
-            this.settingsProvider.ConnectionString = this.PortName;
+			this.surveySettingsProvider.SurveyEnabled = this.SurveyEnabled;
+			this.surveySettingsProvider.SurveyPeriodSeconds = this.SurveyPeriod;
+            this.surveySettingsProvider.ConnectionString = this.PortName;
         }
     }
 }

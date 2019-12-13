@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using DispatcherDesktop.Configuration;
     using Configuration;
     using Data;
     using Logger;
@@ -16,7 +14,7 @@
 
         private readonly IDevicesConfigurationProvider configurationProvider;
 
-        private readonly ISettingsProvider settingsProvider;
+        private readonly ISurveySettingsProvider surveySettingsProvider;
 
         private readonly ILogger logger;
 
@@ -32,12 +30,12 @@
         public SurveyService(
             IDeviceIoDriver ioDriver, 
             IDevicesConfigurationProvider configurationProvider, 
-            ISettingsProvider settingsProvider, 
+            ISurveySettingsProvider surveySettingsProvider, 
             ILogger logger)
         {
             this.ioDriver = ioDriver;
             this.configurationProvider = configurationProvider;
-            this.settingsProvider = settingsProvider;
+            this.surveySettingsProvider = surveySettingsProvider;
             this.logger = logger;
             this.writeQueue = new Queue<Tuple<RegisterWriteData, Action<bool>>>();
 
@@ -82,6 +80,11 @@
         {
             try
             {
+                if (description.Registers.Count == 0)
+                {
+                    return;
+                }
+
                 this.logger.LogInfo(Properties.Resources.LogLineSeparator);
                 this.logger.LogInfo($"{Properties.Resources.ReadOperationStartLogMsg} {description.Name}");
 
@@ -172,7 +175,7 @@
 
                     if (!this.writeOperationRequested)
                     {
-                        await Task.Delay(this.settingsProvider.SurveyPeriodSeconds * 1000);
+                        await Task.Delay(this.surveySettingsProvider.SurveyPeriodSeconds * 1000);
                     }
 
                     if (this.surveyStarted)

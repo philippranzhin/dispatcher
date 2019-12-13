@@ -4,7 +4,6 @@
     using System.Globalization;
     using System.Windows.Data;
     using Models;
-    using Properties;
 
     public class EditRegisterModeToDialogHeaderConverter : IValueConverter
     {

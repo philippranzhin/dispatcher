@@ -1,12 +1,9 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using Device;
     using DispatcherDesktop.Device.Configuration;
     using Device.Data;
     using Device.Survey;
@@ -15,8 +12,6 @@
 
     using Prism.Commands;
     using Prism.Mvvm;
-
-    using Unity.Attributes;
 
     public class DeviceDetailViewModel : BindableBase
     {

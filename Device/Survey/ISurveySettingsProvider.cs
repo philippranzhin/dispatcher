@@ -1,6 +1,6 @@
-﻿namespace DispatcherDesktop.Configuration
+﻿namespace DispatcherDesktop.Device.Survey
 {
-    public interface ISettingsProvider
+    public interface  ISurveySettingsProvider
     {
         string ConnectionString { get; set; }
 

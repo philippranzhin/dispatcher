@@ -1,9 +1,5 @@
 ﻿namespace DispatcherDesktop.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     public class RegisterDescription
     {
         public string Name { get; set; }

@@ -121,7 +121,7 @@
     <value>ПРИМЕНИТЬ</value>
   </data>
   <data name="AppName" xml:space="preserve">
-    <value>Приложение диспечтчеризации тепловых узлов академии МЧС</value>
+    <value>Приложение диспетчеризации тепловых узлов академии МЧС</value>
   </data>
   <data name="EmptyInputErrorMsg" xml:space="preserve">
     <value>поле не должно быть пустым</value>

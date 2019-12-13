@@ -38,7 +38,14 @@ namespace DispatcherDesktop.Device.Driver
 
         public void DiscardInBuffer()
         {
-            this.serialPort.DiscardInBuffer();
+            try
+            {
+                this.serialPort.DiscardInBuffer();
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         public int Read(byte[] buffer, int offset, int count)

@@ -1,8 +1,8 @@
-﻿namespace DispatcherDesktop.Configuration
+﻿namespace DispatcherDesktop.Device.Survey
 {
     using Properties;
 
-    public class SettingsProvider : ISettingsProvider
+    public class SurveySettingsProvider : ISurveySettingsProvider
     {
         public string ConnectionString
         {

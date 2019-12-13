@@ -11,7 +11,6 @@
     Width="525"
     Height="350"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
-    Background="{DynamicResource BlackBackground}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"

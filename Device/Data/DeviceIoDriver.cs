@@ -5,12 +5,11 @@
     using System.IO.Ports;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Windows.Forms;
-    using DispatcherDesktop.Configuration;
     using Driver;
     using Models;
 
     using Modbus.Device;
+    using Survey;
 
     public class DeviceIoDriver : IDeviceIoDriver
     {
@@ -20,11 +19,11 @@
 
         private readonly IModbusSerialMaster modbusMaster;
 
-        public DeviceIoDriver(IStorage storage, ISettingsProvider settings)
+        public DeviceIoDriver(IStorage storage, ISurveySettingsProvider surveySettings)
         {
             this.storage = storage;
 
-            this.port = new SerialPort(settings.ConnectionString)
+            this.port = new SerialPort(surveySettings.ConnectionString)
             {
                 BaudRate = 9600,
                 DataBits = 8,

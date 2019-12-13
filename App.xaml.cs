@@ -1,13 +1,8 @@
-﻿using System;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 
 namespace DispatcherDesktop
 {
-    using System.Linq;
     using System.Windows;
-
-    using Configuration;
-    using Device;
     using DispatcherDesktop.Device.Configuration;
     using Device.Data;
     using Device.Logger;
@@ -26,7 +21,7 @@ namespace DispatcherDesktop
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<ISettingsProvider, SettingsProvider>();
+            containerRegistry.RegisterSingleton<ISurveySettingsProvider, SurveySettingsProvider>();
             containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, DevicesConfigurationProvider>();
             containerRegistry.RegisterSingleton<ISurveyService, SurveyService>();
             containerRegistry.RegisterSingleton<IDeviceIoDriver, DeviceIoDriver>();

@@ -14,7 +14,7 @@
         x:Name="ConsoleScroll"
         MinHeight="200"
         VerticalScrollBarVisibility="Auto">
-        <DockPanel>
+        <DockPanel Background="{DynamicResource MaterialDesignDivider}">
             <ItemsControl ItemsSource="{Binding Logs}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

@@ -2,13 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows.Input;
-
-    using Device;
     using Navigation;
-    using Views;
-
-    using Prism.Commands;
     using Prism.Mvvm;
     using Prism.Regions;
 
