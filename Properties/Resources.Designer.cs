@@ -187,6 +187,15 @@ namespace DispatcherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        public static string PasswordLbl {
+            get {
+                return ResourceManager.GetString("PasswordLbl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Операция чтения была прервана, так как заняла слишком много времени.
         /// </summary>
         public static string ReadOperationFailureByTimeoutLogMsg {
@@ -219,6 +228,15 @@ namespace DispatcherDesktop.Properties {
         public static string ReadOperationSuccesLogMsg {
             get {
                 return ResourceManager.GetString("ReadOperationSuccesLogMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL сервера.
+        /// </summary>
+        public static string ServerUrlLbl {
+            get {
+                return ResourceManager.GetString("ServerUrlLbl", resourceCulture);
             }
         }
         
@@ -264,6 +282,15 @@ namespace DispatcherDesktop.Properties {
         public static string SurveyStartedLabel {
             get {
                 return ResourceManager.GetString("SurveyStartedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя пользователя.
+        /// </summary>
+        public static string UserNameLbl {
+            get {
+                return ResourceManager.GetString("UserNameLbl", resourceCulture);
             }
         }
         

@@ -2,11 +2,15 @@
 
 namespace DispatcherDesktop
 {
+    using System.Diagnostics;
     using System.Windows;
-    using DispatcherDesktop.Device.Configuration;
-    using Device.Data;
-    using Device.Logger;
-    using Device.Survey;
+    using Domain;
+    using Domain.Configuration;
+    using Domain.Data.Device;
+    using Domain.Data.Storage;
+    using Domain.Data.Survey;
+    using Domain.Logger;
+    using Domain.Web;
     using Navigation;
     using Views;
 
@@ -24,12 +28,16 @@ namespace DispatcherDesktop
             containerRegistry.RegisterSingleton<ISurveySettingsProvider, SurveySettingsProvider>();
             containerRegistry.RegisterSingleton<IDevicesConfigurationProvider, DevicesConfigurationProvider>();
             containerRegistry.RegisterSingleton<ISurveyService, SurveyService>();
-            containerRegistry.RegisterSingleton<IDeviceIoDriver, DeviceIoDriver>();
+            containerRegistry.RegisterSingleton<IDeviceIoDriver, FakeIoDriver>();
             containerRegistry.RegisterSingleton<IStorage, InMemoryStorage>();
             containerRegistry.RegisterSingleton<IRegionsProvider, RegionsProvider>();
             containerRegistry.RegisterSingleton<ILogger, Logger>();
-        }
+            containerRegistry.RegisterSingleton<IDataTransferService, DataTransferService>();
+            containerRegistry.RegisterSingleton<IDataManager, DataManager>();
 
+            this.Exit += (s, e) => this.HandleExit();
+        }
+        
         protected override Window CreateShell()
         {
             return this.Container.Resolve<MainWindow>();
@@ -50,7 +58,14 @@ namespace DispatcherDesktop
 
             regionManager.Regions[RegionNames.Main].RequestNavigate(regionsProvider.SelectedRegion.ViewId);
         }
-
+        
+        private void HandleExit()
+        {
+            var dataManager = this.Container.Resolve<IDataManager>();
+            
+            dataManager.Dispose();
+        }
+        
         private void Register(NavigableRegion region)
         {
             var regionManager = this.Container.Resolve<IRegionManager>();

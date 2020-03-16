@@ -1,5 +1,7 @@
 ﻿namespace DispatcherDesktop.Models
 {
+    using Domain.Models;
+
     public class RegisterReference
     {
         public RegisterReference(DeviceDescription device, RegisterDescription register)

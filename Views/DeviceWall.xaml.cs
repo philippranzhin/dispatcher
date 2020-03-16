@@ -2,8 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Controls;
-
-    using Models;
+    using Domain.Models;
     using ViewModels;
 
     using MaterialDesignThemes.Wpf;

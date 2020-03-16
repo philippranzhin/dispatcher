@@ -14,7 +14,7 @@
     d:DesignWidth="800"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel x:Name="Self">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="200" />
@@ -77,6 +77,54 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
+                    <TextBox
+                        Padding="0,15,0,0"
+                        materialDesign:HintAssist.Hint="{x:Static properties:Resources.ServerUrlLbl}"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ServerUrl"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox
+                        Padding="0,15,0,0"
+                        materialDesign:HintAssist.Hint="{x:Static properties:Resources.UserNameLbl}"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="UserName"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox
+                        Padding="0,15,0,0"
+                        materialDesign:HintAssist.Hint="{x:Static properties:Resources.PasswordLbl}"
+                        DockPanel.Dock="Top"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="Password"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validationRules:NotEmptyRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </DockPanel>
 
             </DockPanel>
@@ -111,7 +159,57 @@
                         Text="данные"
                         TextAlignment="Center" />
                 </materialDesign:ColorZone>
-                <ListBox />
+                <DockPanel Dock="Top">
+                    <Button 
+                        DockPanel.Dock="Right" 
+                        Margin="15"
+                        Padding="5"  
+                        IsEnabled="{Binding CanAddMapper}"
+                        Command="{Binding AddMapperCommand}"
+                        Content="Добавить отображение"/>
+                    <Grid DockPanel.Dock="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Grid.Column="0"
+                            Margin="15"
+                            Padding="5"
+                            materialDesign:HintAssist.Hint="Источник"
+                            Text="{Binding MapperSource, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="15"
+                            Padding="5"
+                            materialDesign:HintAssist.Hint="Цель"
+                            Text="{Binding MapperRecipient, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </Grid>
+                </DockPanel>
+                <ItemsControl
+                    DockPanel.Dock="Top"
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Mappers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="5">
+                                <TextBlock DockPanel.Dock="Left">
+                                    <Run
+                                        FontWeight="SemiBold"
+                                        Foreground="{DynamicResource SecondaryAccentBrush}"
+                                        Text="{Binding Source, Mode=OneWay}" /> <Run Text="{Binding Recipient, Mode=OneWay}" />
+                                </TextBlock>
+                                <Button 
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding ElementName=Self, Path=DataContext.RemoveMapperCommand}" 
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"
+                                    Content="Удалить" DockPanel.Dock="Right"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </DockPanel>
             <GridSplitter
                 Grid.Column="2"

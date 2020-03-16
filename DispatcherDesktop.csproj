@@ -56,14 +56,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Device\Data\InMemoryStorage.cs" />
-    <Compile Include="Device\Data\IStorage.cs" />
-    <Compile Include="Device\Data\RegisterId.cs" />
-    <Compile Include="Device\Logger\ILogger.cs" />
-    <Compile Include="Device\Logger\Logger.cs" />
-    <Compile Include="Device\Driver\SerialAdapter.cs" />
+    <Compile Include="Domain\Configuration\Models\DeviceConfig.cs" />
+    <Compile Include="Domain\DataManager.cs" />
+    <Compile Include="Domain\Data\Device\DeviceIoDriver.cs" />
+    <Compile Include="Domain\Data\Device\FakeIoDriver.cs" />
+    <Compile Include="Domain\Data\Device\IDeviceIoDriver.cs" />
+    <Compile Include="Domain\Data\Models\DeviceDataSlice.cs" />
+    <Compile Include="Domain\Data\Models\RegisterDataSlice.cs" />
+    <Compile Include="Domain\Data\Models\RegisterId.cs" />
+    <Compile Include="Domain\Data\Models\RegisterWriteRequest.cs" />
+    <Compile Include="Domain\Data\Storage\InMemoryStorage.cs" />
+    <Compile Include="Domain\Data\Storage\IStorage.cs" />
+    <Compile Include="Domain\Data\Survey\ISurveyService.cs" />
+    <Compile Include="Domain\Data\Survey\ISurveySettingsProvider.cs" />
+    <Compile Include="Domain\Data\Survey\SurveyService.cs" />
+    <Compile Include="Domain\Data\Survey\SurveySettingsProvider.cs" />
+    <Compile Include="Domain\IDataManager.cs" />
+    <Compile Include="Domain\Logger\ILogger.cs" />
+    <Compile Include="Domain\Logger\Logger.cs" />
+    <Compile Include="Domain\Driver\SerialAdapter.cs" />
+    <Compile Include="Domain\Models\DeviceDescription.cs" />
+    <Compile Include="Domain\Models\DeviceMapper.cs" />
+    <Compile Include="Domain\Models\RegisterDescription.cs" />
+    <Compile Include="Domain\Utils\EnumerableExtensions.cs" />
+    <Compile Include="Domain\Web\ConnectInfo.cs" />
+    <Compile Include="Domain\Web\DataTransferService.cs" />
+    <Compile Include="Domain\Web\Model\Device.cs" />
+    <Compile Include="Domain\Web\Model\Register.cs" />
+    <Compile Include="Domain\Web\Model\WriteRegister.cs" />
+    <Compile Include="Domain\Web\IDataTransferService.cs" />
     <Compile Include="Infrastructure\Converters\BooleanToHiddenVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Infrastructure\Converters\EditRegisterModeToBoolConverter.cs" />
     <Compile Include="Infrastructure\Converters\EditRegisterModeToDialogHeaderConverter.cs" />
     <Compile Include="Infrastructure\Converters\InvertBoolConverter.cs" />
     <Compile Include="Infrastructure\Models\EditRegisterMode.cs" />
@@ -72,8 +96,6 @@
     <Compile Include="Infrastructure\ValidationRules\NotEmptyRule.cs" />
     <Compile Include="Infrastructure\ViewContext\SubViewDialogContext.cs" />
     <Compile Include="Models\Register.cs" />
-    <Compile Include="Models\RegisterData.cs" />
-    <Compile Include="Models\RegisterDescription.cs" />
     <Compile Include="Navigation\IRegionsProvider.cs" />
     <Compile Include="Navigation\NavigableRegion.cs" />
     <Compile Include="Navigation\RegionNames.cs" />
@@ -119,18 +141,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Device\Survey\ISurveySettingsProvider.cs" />
-    <Compile Include="Device\Survey\SurveySettingsProvider.cs" />
-    <Compile Include="Device\Survey\SurveyService.cs" />
-    <Compile Include="Device\Data\DeviceIoDriver.cs" />
-    <Compile Include="Device\Configuration\DevicesConfigurationProvider.cs" />
-    <Compile Include="Device\Data\IDeviceIoDriver.cs" />
-    <Compile Include="Device\Configuration\IDevicesConfigurationProvider.cs" />
-    <Compile Include="Models\DeviceDescription.cs" />
+    <Compile Include="Domain\Configuration\DevicesConfigurationProvider.cs" />
+    <Compile Include="Domain\Configuration\IDevicesConfigurationProvider.cs" />
     <Compile Include="Models\RegisterReference.cs" />
-    <Compile Include="Models\RegisterWriteRequest.cs" />
-    <Compile Include="Device\Survey\ISurveyService.cs" />
-    <Compile Include="Models\Seazon.cs" />
     <Compile Include="ViewModels\DeviceDetailViewModel.cs" />
     <Compile Include="ViewModels\DeviceWallViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -179,7 +192,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes">
       <Version>2.5.1</Version>
@@ -195,6 +207,12 @@
     </PackageReference>
     <PackageReference Include="Prism.Wpf">
       <Version>7.1.0.431</Version>
+    </PackageReference>
+    <PackageReference Include="System.Net.WebSockets.Client.Managed">
+      <Version>1.0.22</Version>
+    </PackageReference>
+    <PackageReference Include="Websocket.Client">
+      <Version>4.1.78</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

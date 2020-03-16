@@ -4,7 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Data;
-    using Device.Logger;
+    using Domain.Logger;
     using Infrastructure.Models;
     using Prism.Mvvm;
     using Properties;
@@ -36,14 +36,21 @@
 
         private void AddLog(int severity, string body)
         {
-            lock (this.logSync)
+            try
             {
-                if (this.logs.Count >= Settings.Default.LogsMaxCount)
+                lock (this.logSync)
                 {
-                    this.logs.RemoveAt(0);
-                }
+                    if (this.logs.Count >= Settings.Default.LogsMaxCount)
+                    {
+                        this.logs.RemoveAt(0);
+                    }
 
-                this.Logs.Add(new UiLog(severity, body));
+                    this.Logs.Add(new UiLog(severity, body));
+                }
+            }
+            catch
+            {
+                // so, where I should log this??
             }
         }
     }

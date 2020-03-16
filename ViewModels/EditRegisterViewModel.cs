@@ -1,7 +1,10 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Input;
-    using Device.Configuration;
+    using Domain.Configuration;
+    using Domain.Models;
     using Infrastructure.Models;
     using Infrastructure.ViewContext;
     using Models;
@@ -18,6 +21,7 @@
         private SubViewDialogContext<RegisterReference> context;
         private EditRegisterMode mode;
         private DeviceDescription device;
+        private bool isWritable;
 
         public EditRegisterViewModel(IDevicesConfigurationProvider devicesConfiguration)
         {
@@ -111,7 +115,29 @@
         public bool IsFloat
         {
             get => this.isFloat;
-            set => this.SetProperty(ref this.isFloat, value);
+            set
+            {
+                this.SetProperty(ref this.isFloat, value);
+
+                if (!value)
+                {
+                    this.FloatAddress = null;    
+                }
+            } 
+        }
+
+        public bool IsWritable
+        {
+            get => this.isWritable;
+            set
+            {
+                this.SetProperty(ref this.isWritable, value);
+
+                if (!value)
+                {
+                    this.WriteAddress = null;    
+                }
+            } 
         }
 
         public RegisterDescription RegisterDescription
@@ -126,12 +152,15 @@
                 this.RaisePropertyChanged(nameof(this.Name));
                 this.RaisePropertyChanged(nameof(this.Postfix));
                 this.RaisePropertyChanged(nameof(this.WriteAddress));
+                this.RaisePropertyChanged(nameof(this.IsFloat));
+                this.RaisePropertyChanged(nameof(this.IsWritable));
             } 
         }
 
         public bool CanSave => !string.IsNullOrWhiteSpace(this.Name)
                                && !string.IsNullOrWhiteSpace(this.Description)
-                               && (!this.IsFloat || this.FloatAddress != null);
+                               && (!this.IsFloat || this.FloatAddress != null)
+                               && (!this.IsWritable || this.WriteAddress != null);
 
 
         public EditRegisterMode Mode
@@ -143,13 +172,26 @@
         public ICommand SaveCommand => new DelegateCommand(
             () =>
             {
-                if (this.Mode == EditRegisterMode.Create)
-                {
-                    this.device.Registers.Add(this.RegisterDescription);
-                }
+                List<RegisterDescription> registers = this.device.Registers;
                 
+                if (this.device.Registers.Any(r => r.IntegerAddress == this.RegisterDescription.IntegerAddress))
+                {
+                    registers = this.device.Registers.Select(r =>
+                    {
+                        if (r.IntegerAddress == this.RegisterDescription.IntegerAddress)
+                        {
+                            return this.RegisterDescription;
+                        }
 
-                this.devicesConfiguration.Save(this.device);
+                        return r;
+                    }).ToList();
+                }
+                else
+                {
+                    registers.Add(this.RegisterDescription);   
+                }
+
+                this.devicesConfiguration.AddDevice(new DeviceDescription(this.device.Id, this.device.Name, registers));
 
                 this.Context.Finish();
 
@@ -173,12 +215,14 @@
                 this.Mode = EditRegisterMode.Create;
                 this.RegisterDescription = new RegisterDescription();
                 this.IsFloat = false;
+                this.IsWritable = false;
             }
             else
             {
                 this.Mode = EditRegisterMode.Edit;
-                this.RegisterDescription = e.Register;
+                this.RegisterDescription = e.Register.Clone() as RegisterDescription;
                 this.IsFloat = e.Register.FloatAddress != null;
+                this.IsWritable = e.Register.WriteAddress != null;
             }
         }
     }

@@ -1,11 +1,13 @@
 ﻿using System.Linq;
-using DispatcherDesktop.Device.Data;
 using DispatcherDesktop.Models;
 
 namespace DispatcherDesktop.ViewModels
 {
     using System.Windows.Input;
-    using Device.Survey;
+    using Domain.Data.Models;
+    using Domain.Data.Storage;
+    using Domain.Data.Survey;
+    using Domain.Models;
     using Infrastructure.ViewContext;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -72,7 +74,7 @@ namespace DispatcherDesktop.ViewModels
 
                 this.Loading = true;
 
-                var registerWriteData = new RegisterWriteData(
+                var registerWriteData = new RegisterWriteRequest(
                     new RegisterId(this.device.Id, this.Register),
                     this.Register.IntegerAddress,
                     this.Register.FloatAddress,

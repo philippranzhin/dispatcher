@@ -1,12 +1,15 @@
 ﻿namespace DispatcherDesktop.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using DispatcherDesktop.Device.Configuration;
-    using Device.Data;
-    using Device.Survey;
+    using Domain.Configuration;
+    using Domain.Data.Models;
+    using Domain.Data.Storage;
+    using Domain.Data.Survey;
+    using Domain.Models;
     using Infrastructure.ViewContext;
     using Models;
 
@@ -39,9 +42,9 @@
             this.storage = storage;
             this.surveyService = surveyService;
 
-            this.devicesConfiguration.Saved += ((s, e) => this.UpdateRegisterData());
+            this.devicesConfiguration.Saved += (s, e) => this.UpdateDeviceData();
         }
-
+        
         public DeviceDescription Device
         {
             get => this.device;
@@ -49,13 +52,7 @@
             {
                 if (this.device == null)
                 {
-                    this.storage.Saved += (s, e) =>
-                        {
-                            if (this.device != null)
-                            {
-                                this.UpdateRegisterData();
-                            }
-                        };
+                    this.storage.Saved += this.UpdateRegisterData;
                 }
 
                 this.SetProperty(ref this.device, value);
@@ -63,7 +60,7 @@
                 this.EditContext = new SubViewDialogContext<RegisterReference>();
                 this.WriteContext = new SubViewDialogContext<RegisterReference>();
 
-                this.UpdateRegisterData();
+                this.UpdateDeviceData();
             }
         }
 
@@ -101,7 +98,7 @@
             (register) =>
                 {
                     this.device.Registers.Remove(register);
-                    this.devicesConfiguration.Save(this.device);
+                    this.devicesConfiguration.AddDevice(this.device);
                 });
 
         public ICommand StartEditRegisterCommand => new DelegateCommand<RegisterDescription>(
@@ -118,19 +115,37 @@
                 this.WriteContext.Start(new RegisterReference(this.Device, register));
             });
 
-        private void UpdateRegisterData()
+        
+        private void UpdateRegisterData(object sender, RegisterDataSlice registerDataSlice)
         {
-            if (this.device == null)
+            if (this.device == null) return;
+
+            if (registerDataSlice.Id.Device == this.device.Id)
+            {
+                var registerToUpdate = this.Registers.FirstOrDefault(r => r.Description.IntegerAddress == registerDataSlice.Id.Register);
+
+                if (registerToUpdate != null)
+                {
+                    registerToUpdate.DataSlice = registerDataSlice;
+                }
+            }
+        }
+        
+        private void UpdateDeviceData()
+        {
+            if (this.device == null || !this.devicesConfiguration.Devices.Any())
             {
                 this.Registers = new ObservableCollection<Register>();
                 return;
             }
 
-            var registerModels = this.device.Registers.Select(
+            var updatedDevice = this.devicesConfiguration.Devices.First(d => d.Id == this.device.Id);
+            
+            var registerModels = updatedDevice.Registers.Select(
                 (r) => new Register(r)
-                           {
-                               Data = this.storage.Get(new RegisterId(this.device.Id, r)).LastOrDefault(),
-                           });
+                {
+                    DataSlice = this.storage.Get(new RegisterId(this.device.Id, r)).LastOrDefault(),
+                });
 
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {

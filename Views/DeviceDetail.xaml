@@ -145,7 +145,7 @@
                                                 Foreground="{DynamicResource PrimaryHueDarkBrush}"
                                                 LineStackingStrategy="MaxHeight"
                                                 Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                                                Text="{Binding Data.SaveDate}"
+                                                Text="{Binding DataSlice.SaveDate}"
                                                 TextWrapping="WrapWithOverflow" />
                                         </DockPanel>
                                         <TextBlock
@@ -154,7 +154,7 @@
                                             DockPanel.Dock="Top"
                                             Style="{DynamicResource MaterialDesignTitleTextBlock}"
                                             Visibility="{Binding HasValue, Converter={StaticResource BooleanToHiddenVisibilityConverter}}">
-                                            <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding Data.Value, Mode=OneWay, StringFormat='0.000'}" /> <Run Text="{Binding Description.Postfix, Mode=OneWay}" />
+                                            <Run Foreground="{DynamicResource SecondaryAccentBrush}" Text="{Binding DataSlice.Value, Mode=OneWay, StringFormat='0.000'}" /> <Run Text="{Binding Description.Postfix, Mode=OneWay}" />
                                         </TextBlock>
                                         <TextBlock
                                             Padding="10,0,10,0"

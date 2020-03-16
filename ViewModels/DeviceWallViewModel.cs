@@ -4,10 +4,9 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
-    using DispatcherDesktop.Device.Configuration;
-    using Device.Survey;
-    using Models;
-
+    using Domain.Configuration;
+    using Domain.Data.Survey;
+    using Domain.Models;
     using Prism.Commands;
     using Prism.Mvvm;
 
@@ -92,7 +91,7 @@
                                     this.addingDeviceName,
                                     new List<RegisterDescription>()));
 
-                        this.devicesConfiguration.Save(this.devices);
+                        this.devicesConfiguration.SaveDevices(this.devices);
                         this.AddingDeviceId = null;
                         this.AddingDeviceName = null;
                     }
@@ -105,7 +104,7 @@
                     {
                         this.devices.Remove(deviceDescription);
 
-                        this.devicesConfiguration.Save(this.devices);
+                        this.devicesConfiguration.SaveDevices(this.devices);
                         this.SelectedDevice = this.devices.LastOrDefault();
                     }
                 });

@@ -16,6 +16,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:EditRegisterModeToDialogHeaderConverter x:Key="EditRegisterModeToDialogHeaderConverter" />
+        <converters:EditRegisterModeToBoolConverter x:Key="EditRegisterModeToBoolConverter" />
     </UserControl.Resources>
     <DockPanel
         Width="300"
@@ -85,14 +86,25 @@
                 HorizontalAlignment="Stretch"
                 materialDesign:HintAssist.Hint="Адрес целого значения"
                 materialDesign:HintAssist.IsFloating="True"
+                IsEnabled="{Binding Mode, Converter={StaticResource EditRegisterModeToBoolConverter}}"
                 DockPanel.Dock="Top"
                 TabIndex="3"
                 Text="{Binding IntegerAddress, UpdateSourceTrigger=PropertyChanged}" />
+            <DockPanel Margin="10,10,10,0" DockPanel.Dock="Top">
+                <TextBlock DockPanel.Dock="Left" Text="Доступна запись" />
+                <ToggleButton
+                    x:Name="IsWritableCheckbox"
+                    DockPanel.Dock="Right"
+                    IsChecked="{Binding IsWritable}"
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                    TabIndex="4" />
+            </DockPanel>
             <TextBox
                 Margin="5"
                 HorizontalAlignment="Stretch"
-                materialDesign:HintAssist.Hint="Адрес для записи значения (необязательный)"
+                materialDesign:HintAssist.Hint="Адрес значения для записи (необязательный)"
                 materialDesign:HintAssist.IsFloating="True"
+                IsEnabled="{Binding ElementName=IsWritableCheckbox, Path=IsChecked}"
                 DockPanel.Dock="Top"
                 TabIndex="3"
                 Text="{Binding WriteAddress, UpdateSourceTrigger=PropertyChanged}" />
